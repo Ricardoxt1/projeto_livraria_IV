@@ -25,6 +25,12 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 # Copy existing application directory contents to the working directory
 COPY . /var/www/html
 
+# Giving permitions to docker-php-entrypoin
+RUN chmod 755 /usr/local/bin/docker-php-entrypoint
+
+# Rewrite a docker-php-entrypoint
+COPY build/entrypoint.sh /usr/local/bin/docker-php-entrypoint
+
 # Expose port 9000 and start php-fpm server (for FastCGI Process Manager)
 EXPOSE 9000
 CMD ["php-fpm"]

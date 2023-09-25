@@ -1,6 +1,7 @@
-version: "2.0"
+version: "3.7"
+
 services:
-  #PHP Service
+  # laravel       
   laravel:
     build:
       context: ./
@@ -18,8 +19,9 @@ services:
       - ./:/var/www/html/
       - ./php/laravel.ini:/usr/local/etc/php/conf.d/laravel.ini
     networks:
-      - app-network
+      - library-3
 
+  # vue
   vue:
     stdin_open: true
     container_name: vue
@@ -31,14 +33,13 @@ services:
       - /app/node_modules
       - ../vue:/app:cached
     networks:
-      - app-network
+      - library-3
     environment:
       - CHOKIDAR_USEPOLLING=true
-    expose: 
+    expose:
       - "80"
-    ports: 
+    ports:
       - "8080:8080"
-      - "8081:8081"
 
   #Nginx Service
   webserver:
@@ -54,8 +55,21 @@ services:
     ports:
       - "80:80"
     networks:
-      - app-network
-  
+      - library-3
+
+  # phpmyadmin
+  admin:
+    container_name: phpmyadmin
+    image: phpmyadmin/phpmyadmin:latest
+    ports:
+      - 9001:80
+    environment:
+      - PMA_ARBITRARY=1
+      - MYSQL_USERNAME=${DB_USERNAME}
+      - MYSQL_ROOT_PASSWORD=${DB_PASSWORD}
+    networks:
+      - library-3
+
   #Mysql DB
   mysql:
     image: mysql:8.0
@@ -65,18 +79,13 @@ services:
     ports:
         - "33061:3306"
     environment:
-        MYSQL_ROOT_PASSWORD: secret
-        MYSQL_DATABASE: laravel
+        MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+        MYSQL_DATABASE: ${DB_DATABASE}
     volumes:
       - ../mysql:/mysql
     networks:
-      - app-network
+      - library-3
 
-#Docker Networks
 networks:
-  app-network:
+  library-3:
     driver: bridge
-
-volumes:
-  mysql:
-    driver: local
