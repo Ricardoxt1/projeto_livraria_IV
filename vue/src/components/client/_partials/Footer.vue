@@ -1,0 +1,15 @@
+<template>
+  <footer class="text-muted text-center">
+    <div class="container">
+      <p class="text-white py-4">© 2023 Biblioteca Pedbot</p>
+    </div>
+  </footer>
+</template>
+
+<script>
+export default {
+  /**
+   * This is the options object for the Vue component.
+   */
+};
+</script>
