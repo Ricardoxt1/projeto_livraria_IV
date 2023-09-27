@@ -52,7 +52,7 @@ class AuthorController extends Controller
     public function show(int $id)
     {
         $author = $this->author->with('books')->find($id);
-        if ($author === null) {
+        if (is_null($author)) {
             return response()->json(['erro' => 'Recurso pesquisado não existe'], 404);
         }
 
@@ -90,7 +90,7 @@ class AuthorController extends Controller
     {
         $author = $this->author->find($id);
 
-        if ($author === null) {
+        if (is_null($author)) {
             return response()->json(['erro' => 'Impossível realizar a exclusão. O recurso solicitado não existe'], 404);
         }
 

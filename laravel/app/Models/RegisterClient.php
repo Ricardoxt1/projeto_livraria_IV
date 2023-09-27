@@ -7,10 +7,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class RegisterClient extends Model
 {
-    use HasFactory;
     protected $fillable = ['username', 'email', 'password'];
 
-    public function rules(){
+    /**
+     * Returns an array of validation rules for the input fields.
+     *
+     * @return array An associative array of validation rules
+     */
+    public function rules(): array
+    {
         return [
             'username' => 'required',
             'email' => 'required|email',
@@ -18,7 +23,13 @@ class RegisterClient extends Model
         ];
     }
 
-    public function feedback(){
+    /**
+     * Returns an array of feedback messages.
+     *
+     * @return array
+     */
+    public function feedback(): array
+    {
         return [
             'required' => 'O campo :attribute deve ser preenchido',
             'email' => 'O campo :attribute deve ser um e-mail válido',

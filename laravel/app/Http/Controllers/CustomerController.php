@@ -51,7 +51,7 @@ class CustomerController extends Controller
     public function show(int $id)
     {
         $customer = $this->customer->with('rentals')->find($id);
-        if ($customer === null) {
+        if (is_null($customer)) {
             return response()->json(['erro' => 'Recurso pesquisado não existe'], 404);
         }
 
@@ -84,7 +84,7 @@ class CustomerController extends Controller
     public function destroy(int $id)
     {
         $customer = $this->customer->find($id);
-        if ($customer === null) {
+        if (is_null($customer)) {
             return response()->json(['erro' => 'Impossível realizar a exclusão. O recurso solicitado não existe'], 404);
         }
 

@@ -2,12 +2,11 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Author extends Model
 {
-    use HasFactory;
     protected $table = 'authors';
     protected $fillable = ['name'];
 
@@ -15,25 +14,33 @@ class Author extends Model
      * This function returns the validation rules for the form.
      * @return array The validation rules.
      */
-    public function rules(){
+    public function rules(): array
+    {
         return [
             'name' => 'required|min:3'
         ];
     }
 
 
-   /**
-    * Returns an array of feedback messages.
-    * @return array
-    */
-   public function feedback(){
-       return [
-           'name.required' => 'O campo nome é obrigatório', 
-           'name.min' => 'O campo nome deve ter no mínimo 3 caracteres' 
-       ];
-   }
+    /**
+     * Returns an array of feedback messages.
+     * @return array
+     */
+    public function feedback(): array
+    {
+        return [
+            'name.required' => 'O campo nome é obrigatório',
+            'name.min' => 'O campo nome deve ter no mínimo 3 caracteres'
+        ];
+    }
 
-   public function books(){
-       return $this->hasMany(Book::class);
-   }
+    /**
+     * Get the books associated with this object.
+     *
+     * @return HasMany
+     */
+    public function books(): HasMany
+    {
+        return $this->hasMany(Book::class);
+    }
 }

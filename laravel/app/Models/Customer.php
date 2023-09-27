@@ -2,16 +2,20 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Customer extends Model
 {
-    use HasFactory;
     protected $table = 'customers';
     protected $fillable = ['cpf', 'name', 'phone_number', 'address', 'email'];
 
-    public function rules(){
+    /**
+     * Generate the validation rules for the form.
+     * @return array
+     */
+    public function rules(): array
+    {
         return [
             'cpf' => 'required|min:11|max:11',
             'name' => 'required|min:3',
@@ -21,7 +25,12 @@ class Customer extends Model
         ];
     }
 
-    public function feedback(){
+    /**
+     * Returns an array of feedback messages for form validation errors.
+     * @return array An array of feedback messages.
+     */
+    public function feedback(): array
+    {
         return [
             'required' =>  'O campo :attribute é obrigatório',
             'cpf.min' => 'O campo cpf deve ter no mínimo 11 caracteres',
@@ -34,8 +43,12 @@ class Customer extends Model
         ];
     }
 
-    public function rentals(){
+    /**
+     * Returns the rentals associated with this object.
+     * @return HasMany
+     */
+    public function rentals(): HasMany
+    {
         return $this->hasMany(Rental::class);
     }
-    
 }

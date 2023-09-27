@@ -24,24 +24,25 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-// Define routes for the 'author' apiResource
-Route::apiResource('/author', AuthorController::class);
+Route::middleware('autenticate:padrao')->prefix('/')->group(function () {
+    // Define routes for the 'author' apiResource
+    Route::apiResource('/author', AuthorController::class);
 
-// Define routes for the 'book' apiResource
-Route::apiResource('/book', BookController::class);
+    // Define routes for the 'book' apiResource
+    Route::apiResource('/book', BookController::class);
 
-// Define routes for the 'customer' apiResource
-Route::apiResource('/customer', CustomerController::class);
+    // Define routes for the 'customer' apiResource
+    Route::apiResource('/customer', CustomerController::class);
 
-// Define routes for the 'employee' apiResource
-Route::apiResource('/employee', EmployeeController::class);
+    // Define routes for the 'employee' apiResource
+    Route::apiResource('/employee', EmployeeController::class);
 
-// Define routes for the 'publisher' apiResource
-Route::apiResource('/publisher', PublisherController::class);
+    // Define routes for the 'publisher' apiResource
+    Route::apiResource('/publisher', PublisherController::class);
 
-// Define routes for the 'rental' apiResource
-Route::apiResource('/rental', RentalController::class);
+    // Define routes for the 'rental' apiResource
+    Route::apiResource('/rental', RentalController::class);
 
-// Define routes for the 'register' apiResource
-Route::apiResource('/register', RegisterController::class);
-
+    // Define routes for the 'register' apiResource
+    Route::apiResource('/register', RegisterController::class);
+});

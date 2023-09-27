@@ -51,7 +51,7 @@ class EmployeeController extends Controller
     public function show(int $id)
     {
         $employee = $this->employee->with('library')->find($id);
-        if ($employee === null) {
+        if (is_null($employee)) {
             return response()->json(['erro' => 'Recurso pesquisado não existe'], 404);
         }
 
@@ -67,7 +67,7 @@ class EmployeeController extends Controller
     public function update(Request $request, int $id)
     {
         $employee = $this->employee->find($id);
-        if ($employee === null) {
+        if (is_null($employee)) {
             return response()->json(['erro' => 'Recurso pesquisado não existe'], 404);
         }
 
@@ -89,7 +89,7 @@ class EmployeeController extends Controller
     public function destroy(int $id)
     {
         $employee = $this->employee->find($id);
-        if ($employee === null) {
+        if (is_null($employee)) {
             return response()->json(['erro' => 'Recurso pesquisado não existe'], 404);
         }
 

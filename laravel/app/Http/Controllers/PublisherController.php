@@ -49,7 +49,7 @@ class PublisherController extends Controller
     public function show($id)
     {
         $publishers = $this->publisher->with('books')->find($id);
-        if ($publishers === null) {
+        if (is_null($publishers)) {
             return response()->json(['erro' => 'Recurso pesquisado não existe'], 404);
         }
 
@@ -67,7 +67,7 @@ class PublisherController extends Controller
    
         $publisher = $this->publisher->find($id);
         
-        if ($publisher === null) {
+        if (is_null($publisher)) {
             return response()->json(['erro' => 'Recurso pesquisado não existe'], 404);
         }
 
@@ -89,7 +89,7 @@ class PublisherController extends Controller
     public function destroy($id)
     {
         $publisher = $this->publisher->find($id);
-        if ($publisher === null) {
+        if (is_null($publisher)) {
             return response()->json(['erro' => 'Recurso pesquisado não existe'], 404);
         }
 

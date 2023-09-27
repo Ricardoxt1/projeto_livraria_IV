@@ -52,7 +52,7 @@ class RentalController extends Controller
     public function show($id)
     {
         $rental = $this->rental->find($id);
-        if ($rental === null) {
+        if (is_null($rental)) {
             return response()->json(['erro' => 'Recurso pesquisado não existe'], 404);
         }
 
@@ -69,7 +69,7 @@ class RentalController extends Controller
     {
         $rental = $this->rental->find($id);
 
-        if ($rental === null) {
+        if (is_null($rental)) {
             return response()->json(['erro' => 'Recurso pesquisado não existe'], 404);
         }
 
@@ -91,7 +91,7 @@ class RentalController extends Controller
     public function destroy($id)
     {
         $rental = $this->rental->find($id);
-        if ($rental === null) {
+        if (is_null($rental)) {
             return response()->json(['erro' => 'Recurso pesquisado não existe'], 404);
         }
 

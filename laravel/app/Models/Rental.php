@@ -2,13 +2,11 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Rental extends Model
 {
-    use HasFactory;
     protected $table = 'rentals';
     protected $fillable = ['customer_id', 'book_id', 'employee_id', 'rental', 'delivery'];
 
@@ -16,7 +14,7 @@ class Rental extends Model
      * Defines the validation rules for the form data.
      * @return array The validation rules.
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             'customer_id' => 'required|exists:customers,id',
@@ -31,7 +29,7 @@ class Rental extends Model
      * Generates an array containing feedback messages for invalid input fields.
      * @return array
      */
-    public function feedback()
+    public function feedback(): array
     {
         return [
             'required' =>  'O campo :attribute é obrigatório',
@@ -47,7 +45,7 @@ class Rental extends Model
      * Get the associated customer for this instance.
      * @return BelongsTo
      */
-    public function customer()
+    public function customer(): BelongsTo
     {
         return $this->belongsTo(Customer::class);
     }
@@ -56,7 +54,7 @@ class Rental extends Model
      * Get the associated book for this instance.
      * @return BelongsTo
      */
-    public function book()
+    public function book(): BelongsTo
     {
         return $this->belongsTo(Book::class);
     }
@@ -65,7 +63,7 @@ class Rental extends Model
      * Get the associated employee for this instance.
      * @return BelongsTo
      */
-    public function employee()
+    public function employee(): BelongsTo
     {
         return $this->belongsTo(Employee::class);
     }

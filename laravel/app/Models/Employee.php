@@ -2,13 +2,12 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Employee extends Model
 {
-    use HasFactory;
     protected $table = 'employees';
     protected $fillable = ['library_id', 'name', 'pis', 'office', 'departament'];
 
@@ -16,7 +15,7 @@ class Employee extends Model
      * This function returns the validation rules for the form.
      * @return array The validation rules.
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             'library_id' => 'required|exists:library,id',
@@ -31,7 +30,7 @@ class Employee extends Model
      * Returns an array of feedback messages.
      * @return array
      */
-    public function feedback()
+    public function feedback(): array
     {
         return [
             'required' =>  'O campo :attribute é obrigatório',
@@ -45,12 +44,16 @@ class Employee extends Model
      * Retrieve the library where this employee is located.
      * @return BelongsTo
      */
-    public function library()
+    public function library(): BelongsTo
     {
         return $this->belongsTo(Library::class);
     }
 
-    public function rentals()
+    /**
+     * A description of the entire PHP function.
+     * @return HasMany
+     */
+    public function rentals(): HasMany
     {
         return $this->hasMany(Rental::class);
     }

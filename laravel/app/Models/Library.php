@@ -2,12 +2,11 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Library extends Model
 {
-    use HasFactory;
     protected $table = 'library';
     protected $fillable = [
         'name',
@@ -17,7 +16,8 @@ class Library extends Model
      * Defines the validation rules for the form data.
      * @return array The validation rules.
      */
-    public function rules(){
+    public function rules(): array
+    {
         return [
             'name' => 'required|min:3'
         ];
@@ -27,15 +27,20 @@ class Library extends Model
      * Generates an array containing feedback messages for invalid input fields.
      * @return array
      */
-    public function feedback(){
+    public function feedback(): array
+    {
         return [
-            'name.required' => 'O campo nome é obrigatório', 
-            'name.min' => 'O campo nome deve ter no mínimo 3 caracteres' 
+            'name.required' => 'O campo nome é obrigatório',
+            'name.min' => 'O campo nome deve ter no mínimo 3 caracteres'
         ];
     }
 
-    public function books(){
+    /**
+     * Get the books associated with this model.
+     * @return HasMany
+     */
+    public function books(): HasMany
+    {
         return $this->hasMany(Book::class);
     }
-    
 }

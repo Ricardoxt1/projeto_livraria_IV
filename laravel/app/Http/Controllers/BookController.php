@@ -62,7 +62,7 @@ class BookController extends Controller
     public function show(int $id)
     {
         $book = $this->book->with('author', 'publisher', 'library')->find($id);
-        if ($book === null) {
+        if (is_null($book)) {
             return response()->json(['erro' => 'Recurso pesquisado não existe'], 404);
         }
 
@@ -80,7 +80,7 @@ class BookController extends Controller
     public function update(Request $request, Storage $storage, int $id)
     {
         $book = $this->book->find($id);
-        if ($book === null) {
+        if (is_null($book)) {
             return response()->json(['erro' => 'Recurso pesquisado não existe'], 404);
         }
 
@@ -116,7 +116,7 @@ class BookController extends Controller
     {
         $book = $this->book->find($id);
 
-        if ($book === null) {
+        if (is_null($book)) {
             return response()->json(['erro' => 'Recurso pesquisado não existe'], 404);
         }
 
