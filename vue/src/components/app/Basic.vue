@@ -32,12 +32,12 @@
     </head>
 
     <body>
-      <navbar />
+      <Navbar />
       <div class="container-fluid">
         <div class="row">
-          <sidebar />
+          <Sidebar />
         </div>
-        <footer />
+        <Footer />
       </div>
 
       <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
@@ -59,14 +59,14 @@
 </template>
 
 
-<script>
-import { Basic } from "vue";
-import navbar from "@/components/app/_partials/Navbar.vue";
-import Sidebar from "@/components/app/_partials/Sidebar.vue";
-import Footer from "@/components/app/_partials/Footer.vue";
+<script setup>
+import Navbar from "./_partials/Navbar.vue";
+import Sidebar from "./_partials/Sidebar.vue";
+import Footer from "./_partials/Footer.vue";
+</script>
 
+<script>
 export default Basic({
-  components: { navbar, Sidebar, Footer, Sidebar },
   setup() {},
 });
 </script>

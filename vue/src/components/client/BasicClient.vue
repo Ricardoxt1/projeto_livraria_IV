@@ -14,12 +14,12 @@
 
     <body>
       <section class="h-100 gradient-form py-2" style="background: #040657">
-        <div class="container p-5 h-100">conteúdo</div>
+        <div class="container p-5 h-100">
+          <router-view></router-view>
+        </div>
       </section>
 
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
     </body>
   </html>
 </template>
-
-

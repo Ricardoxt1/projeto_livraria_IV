@@ -119,46 +119,48 @@
   </div>
 </template>
 
-<script>
-// Função para alternar a visibilidade da senha
-document.getElementById("toggleButton").addEventListener("click", function () {
-  const passwordInput = document.getElementById("validationCustom02");
-  const eyeIcon = this.querySelector("img");
 
-  if (passwordInput.type === "password") {
-    passwordInput.type = "text";
-    eyeIcon.classList.remove("bi-eye-slash");
-    eyeIcon.classList.add("bi-eye");
-  } else {
-    passwordInput.type = "password";
-    eyeIcon.classList.remove("bi-eye");
-    eyeIcon.classList.add("bi-eye-slash");
-  }
-});
+<script setup>
+import Footer from "./_partials/Footer.vue";
+import Navbar from "./_partials/Navbar.vue";
 </script>
-
+  
 <script>
-const registerForm = document.getElementById("registerForm");
-
-registerForm.addEventListener("submit", function (event) {
-  if (!registerForm.checkValidity()) {
-    event.preventDefault();
-    event.stopPropagation();
-  } else {
-    console.log("Formulário enviado!");
-  }
-
-  registerForm.classList.add("was-validated");
-});
-</script>
-
-<script>
-import Footer from "@components/client/_partials/Footer.vue";
-import Navbar from "@components/client/_partials/Navbar.vue";
-
 export default {
+  /**
+   * Sets up the functionality for the component.
+   *
+   * @return {void}
+   */
   setup() {
-    Footer, Navbar;
+    const toggleButton = document.getElementById("toggleButton");
+    const passwordInput = document.getElementById("validationCustom02");
+    const eyeIcon = toggleButton.querySelector("img");
+
+    toggleButton.addEventListener("click", function () {
+      if (passwordInput.type === "password") {
+        passwordInput.type = "text";
+        eyeIcon.classList.remove("bi-eye-slash");
+        eyeIcon.classList.add("bi-eye");
+      } else {
+        passwordInput.type = "password";
+        eyeIcon.classList.remove("bi-eye");
+        eyeIcon.classList.add("bi-eye-slash");
+      }
+    });
+
+    const registerForm = document.getElementById("registerForm");
+
+    registerForm.addEventListener("submit", function (event) {
+      if (!registerForm.checkValidity()) {
+        event.preventDefault();
+        event.stopPropagation();
+      } else {
+        console.log("Formulário enviado!");
+      }
+
+      registerForm.classList.add("was-validated");
+    });
   },
 };
 </script>

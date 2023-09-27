@@ -72,10 +72,3 @@
   </nav>
 </template>
 
-<script>
-export default {
-  /**
-   * This is the options object for the Vue component.
-   */
-};
-</script>

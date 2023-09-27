@@ -27,8 +27,11 @@
       <div class="container-fluid">
         <div class="row">
           <SidebarRegister />
+          <div class="col">
+
+          </div>
         </div>
-        <Footer/>
+        <Footer />
       </div>
       <script
         src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js"
@@ -45,14 +48,15 @@
   </html>
 </template>
 
+
+<script setup>
+import Navbar from "./_partials/Navbar.vue";
+import SidebarRegister from "./_partials/SidebarRegister.vue";
+import Footer from "./_partials/Footer.vue";
+</script>
+
 <script>
-
-import Navbar from "@/components/app/_partials/Navbar.vue";
-import SidebarRegister from "@/components/app/_partials/SidebarRegister.vue";
-import Footer from "@/components/app/_partials/Footer.vue";
-
-export default {
-  components: { Navbar, SidebarRegister, Footer, SidebarRegister1 },
+export default Basic({
   setup() {},
-};
+});
 </script>

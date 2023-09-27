@@ -9,18 +9,12 @@
               <div class="card-body p-md-5 mx-md-4">
                 <div class="text-center">
                   <img
-                    src="{{ asset('img/logoLibrary.png') }}"
+                    src="vue/public/img/logoLibrary.png"
                     style="width: 185px"
                     alt="logo"
                   />
                   <h2 class="mt-1 mb-5 pb-1">Biblioteca Pedbot</h2>
                 </div>
-                <!-- @if ($erro && $erro !== '')
-                                <div class="alert alert-danger text-center">{{ $erro }}</div>
-                            @elseif ($sucess && $sucess !== '')
-                                <div class="alert alert-success text-center">{{ $sucess }}</div>
-                            @endif -->
-
                 <form class="needs-validatio was-validated" method="post">
                   <div class="form-outline my-4">
                     <label
@@ -64,7 +58,7 @@
                         id="toggleButton"
                       >
                         <img
-                          src="img/client/eye.svg"
+                          src="vue/public/img/client/eye.svg"
                           alt="eye"
                           width="20"
                           class="text-light"
@@ -113,33 +107,36 @@
   </div>
 </template>
 
-
-
-<script>
-// Função para alternar a visibilidade da senha
-document.getElementById("toggleButton").addEventListener("click", function () {
-  const passwordInput = document.getElementById("form2Example22");
-  const eyeIcon = this.querySelector("img");
-
-  if (passwordInput.type === "password") {
-    passwordInput.type = "text";
-    eyeIcon.classList.remove("bi-eye-slash");
-    eyeIcon.classList.add("bi-eye");
-  } else {
-    passwordInput.type = "password";
-    eyeIcon.classList.remove("bi-eye");
-    eyeIcon.classList.add("bi-eye-slash");
-  }
-});
+<script setup>
+import Footer from "../../components/client/_partials/Footer.vue";
+import Navbar from "../../components/client/_partials/Navbar.vue";
+import BasicClient from "../../components/client/BasicClient.vue";
 </script>
 
 <script>
-import Footer from "@components/client/_partials/Footer.vue";
-import Navbar from "@components/client/_partials/Navbar.vue";
-
 export default {
+  extends: BasicClient,
+  /**
+   * Sets up the toggle button functionality for password visibility.
+   *
+   * @return {void} No return value.
+   */
   setup() {
-    Footer, Navbar;
+    const toggleButton = document.getElementById("toggleButton");
+    const passwordInput = document.getElementById("form2Example22");
+    const eyeIcon = toggleButton.querySelector("img");
+
+    toggleButton.addEventListener("click", function () {
+      if (passwordInput.type === "password") {
+        passwordInput.type = "text";
+        eyeIcon.classList.remove("bi-eye-slash");
+        eyeIcon.classList.add("bi-eye");
+      } else {
+        passwordInput.type = "password";
+        eyeIcon.classList.remove("bi-eye");
+        eyeIcon.classList.add("bi-eye-slash");
+      }
+    });
   },
 };
 </script>
