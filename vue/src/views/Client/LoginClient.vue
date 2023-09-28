@@ -2,7 +2,6 @@
   <div>
     <BasicClient />
     <div>
-      <NavbarClient />
       <div class="row d-flex justify-content-center align-items-center h-100">
         <div class="col-xl-12">
           <div class="card rounded-3 text-black">
@@ -10,11 +9,7 @@
               <div class="col-lg-6">
                 <div class="card-body p-md-5 mx-md-4">
                   <div class="text-center">
-                    <img
-                      src="vue/public/img/logoLibrary.png"
-                      style="width: 185px"
-                      alt="logo"
-                    />
+                    <img :src="require('@/assets/img/logoLibrary.png')" style="width: 185px" alt="logo" />
                     <h2 class="mt-1 mb-5 pb-1">Biblioteca Pedbot</h2>
                   </div>
                   <form class="needs-validatio was-validated" method="post">
@@ -60,7 +55,7 @@
                           id="toggleButton"
                         >
                           <img
-                            src="vue/public/img/client/eye.svg"
+                            :src="require('@/assets/img/client/eye.svg')"
                             alt="eye"
                             width="20"
                             class="text-light"
@@ -100,25 +95,19 @@
                 </div>
               </div>
               <div class="col-lg-6 d-flex align-items-center">
-                <img
-                  src="https://images.unsplash.com/photo-1614849963640-9cc74b2a826f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80"
-                  width="100%"
-                  height="100%"
-                  alt=""
-                />
+                <img :src="require('@/assets/imgLogin.jpg')" alt="dwad" />
               </div>
             </div>
           </div>
         </div>
       </div>
-      <FooterClient />
     </div>
+    <FooterClient />
   </div>
 </template>
 
 <script setup>
 import FooterClient from "../../components/client/_partials/FooterClient.vue";
-import NavbarClient from "../../components/client/_partials/NavbarClient.vue";
 import BasicClient from "../../components/client/BasicClient.vue";
 </script>
 
@@ -127,9 +116,11 @@ export default {
   name: "LoginClient",
   components: {
     FooterClient,
-    NavbarClient,
     BasicClient,
   },
+  data: () => ({
+  
+  }),
   /**
    * Sets up the toggle button functionality for password visibility.
    *

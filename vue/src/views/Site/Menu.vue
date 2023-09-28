@@ -30,7 +30,7 @@
           <div class="d-flex justify-content-between align-items-center">
             <img
               class="bg-light mx-4"
-              :src="logoLibrary"
+              src="@/assets/img/logoLibrary.png"
               width="150"
               alt=""
             />
@@ -41,7 +41,7 @@
                 aria-label="Vertical button group"
               >
                 <div class="pl-3 mb-5">
-                  <a href="/app/logout" class="btn btn-danger">Logout</a>
+                  <a href="/logout" class="btn btn-danger">Logout</a>
                 </div>
                 <div class="btn-group dropstart" role="group">
                   <button
@@ -54,25 +54,25 @@
                   </button>
                   <ul class="dropdown-menu">
                     <li>
-                      <a class="dropdown-item" href="/app/author">Autores</a>
+                      <a class="dropdown-item" href="/author">Autores</a>
                     </li>
                     <li>
                       <hr class="dropdown-divider" />
                     </li>
                     <li>
-                      <a class="dropdown-item" href="/app/book">Livros</a>
+                      <a class="dropdown-item" href="/book">Livros</a>
                     </li>
                     <li>
                       <hr class="dropdown-divider" />
                     </li>
                     <li>
-                      <a class="dropdown-item" href="/app/customer">Usuarios</a>
+                      <a class="dropdown-item" href="/customer">Usuarios</a>
                     </li>
                     <li>
                       <hr class="dropdown-divider" />
                     </li>
                     <li>
-                      <a class="dropdown-item" href="/app/employee"
+                      <a class="dropdown-item" href="/employee"
                         >Funcionarios</a
                       >
                     </li>
@@ -80,7 +80,7 @@
                       <hr class="dropdown-divider" />
                     </li>
                     <li>
-                      <a class="dropdown-item" href="/app/rental">Alugueis</a>
+                      <a class="dropdown-item" href="/rental">Alugueis</a>
                     </li>
                   </ul>
                 </div>
@@ -100,7 +100,7 @@
                       >
                     </li>
                     <li>
-                      <a class="dropdown-item my-2" href="/app/author/create"
+                      <a class="dropdown-item my-2" href="/createAuthor"
                         >Autor</a
                       >
                     </li>
@@ -108,13 +108,13 @@
                       <hr class="dropdown-divider" />
                     </li>
                     <li>
-                      <a class="dropdown-item" href="/app/book/create">Livro</a>
+                      <a class="dropdown-item" href="/createBook">Livro</a>
                     </li>
                     <li>
                       <hr class="dropdown-divider" />
                     </li>
                     <li>
-                      <a class="dropdown-item" href="/app/customer/create"
+                      <a class="dropdown-item" href="/createCustomer"
                         >Usuario</a
                       >
                     </li>
@@ -122,7 +122,7 @@
                       <hr class="dropdown-divider" />
                     </li>
                     <li>
-                      <a class="dropdown-item my-2" href="/app/author/create"
+                      <a class="dropdown-item my-2" href="/createEmployee"
                         >Funcionario</a
                       >
                     </li>
@@ -163,7 +163,7 @@
             />
           </svg>
           <p class="lead">
-            <a href="/app/home" class="btn btn-md btn-light" tabindex="-1"
+            <a href="/" class="btn btn-md btn-light" tabindex="-1"
               >Ver contéudo</a
             >
           </p>

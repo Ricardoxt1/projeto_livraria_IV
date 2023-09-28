@@ -1,6 +1,6 @@
 <template>
   <div>
-    <NavbarClient />
+    <BasicClient />
     <div class="row d-flex justify-content-center align-items-center h-100">
       <div class="col">
         <div class="card rounded-3 text-black">
@@ -121,13 +121,17 @@
 
 
 <script setup>
+import BasicClient from "../../components/client/BasicClient.vue";
 import FooterClient from "../../components/client/_partials/FooterClient.vue";
-import NavbarClient from "../../components/client/_partials/NavbarClient.vue";
 </script>
   
 <script>
 export default {
   name: "RegisterClient",
+  components: {
+    BasicClient,
+    FooterClient,
+  },
   /**
    * Sets up the functionality for the component.
    *

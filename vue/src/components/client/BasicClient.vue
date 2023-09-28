@@ -11,14 +11,12 @@
         href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
       />
     </head>
-    <Navbar />
     <body>
       <section class="h-100 gradient-form py-2" style="background: #040657">
         <div class="container p-5 h-100">
-          <Login />
+          <router-view />
         </div>
       </section>
-    <Footer />
     </body>
       <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js">
   </html>
@@ -26,9 +24,6 @@
 
 <script>
 import logoLibraryBg from "../../../public/img/logoLibraryBg.jpg";
-import Navbar from "./_partials/NavbarClient.vue";
-import Footer from "./_partials/FooterClient.vue";
-import Login from "../../views/Client/LoginClient.vue";
 
 export default {
   name: "BasicClient",
@@ -37,10 +32,6 @@ export default {
       logoLibraryBg,
     };
   },
-  components: {
-    Login,
-    Navbar,
-    Footer,
-  }
+  components: {}
 };
 </script>
