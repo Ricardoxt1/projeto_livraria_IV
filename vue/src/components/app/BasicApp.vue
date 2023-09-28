@@ -12,7 +12,7 @@
       <meta name="Ricardo" content="Sistema de biblioteca" />
       <meta name="generator" content="Ricardo" />
 
-      <link rel="shortcut icon" href="/resources/img/logoLibraryBg.jpg" />
+      <link rel="shortcut icon" href="img/logoLibraryBg.jpg" />
       <link
         href="https://getbootstrap.com/docs/5.2/examples/album/"
         rel="canonical"
@@ -59,14 +59,23 @@
 </template>
 
 
-<script setup>
-import Navbar from "./_partials/Navbar.vue";
-import Sidebar from "./_partials/Sidebar.vue";
-import Footer from "./_partials/Footer.vue";
-</script>
-
 <script>
-export default Basic({
+import logoLibraryBg from "../../../public/img/logoLibraryBg.jpg";
+import Navbar from "./_partials/NavbarApp.vue";
+import Sidebar from "./_partials/SidebarApp.vue";
+import Footer from "./_partials/FooterApp.vue";
+
+export default {
+  name: "BasicApp",
+  components: {
+    Navbar,
+    Sidebar,
+    Footer,
+  },
+  data: () => ({
+    logoLibraryBg,
+  }),
+  
   setup() {},
-});
+};
 </script>

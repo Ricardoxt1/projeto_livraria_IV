@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Navbar />
+    <NavbarClient />
     <div class="row d-flex justify-content-center align-items-center h-100">
       <div class="col">
         <div class="card rounded-3 text-black">
@@ -115,18 +115,19 @@
         </div>
       </div>
     </div>
-    <Footer />
+    <FooterClient />
   </div>
 </template>
 
 
 <script setup>
-import Footer from "./_partials/Footer.vue";
-import Navbar from "./_partials/Navbar.vue";
+import FooterClient from "../../components/client/_partials/FooterClient.vue";
+import NavbarClient from "../../components/client/_partials/NavbarClient.vue";
 </script>
   
 <script>
 export default {
+  name: "RegisterClient",
   /**
    * Sets up the functionality for the component.
    *

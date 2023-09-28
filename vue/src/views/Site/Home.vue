@@ -1,6 +1,5 @@
 <template>
   <div>
-    <Navbar />
     <main style="background-color: rgb(178, 206, 239)">
       <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-indicators">
@@ -25,7 +24,7 @@
               class="bd-placeholder-img"
               width="100%"
               height="700"
-              src="./public/img/carousel/part3.jpg"
+              :src="cr1.jpg"
               aria-hidden="true"
               preserveAspectRatio="xMidYMid slice"
               focusable="false"
@@ -49,7 +48,7 @@
               class="bd-placeholder-img"
               width="100%"
               height="700"
-              src="./public/img/carousel/part2.jpg"
+              :src="cr2"
               aria-hidden="true"
               preserveAspectRatio="xMidYMid slice"
               focusable="false"
@@ -98,7 +97,7 @@
               class="bd-placeholder-img rounded-circle"
               width="140"
               height="140"
-              src="./public/img/authors/JJTOKIEN.jpg"
+              :src="jjtokien"
               alt="JJTOKIEN"
             />
             <rect width="100%" height="100%" fill="#777" /><text
@@ -122,7 +121,7 @@
               class="bd-placeholder-img rounded-circle"
               width="140"
               height="140"
-              src="./public/img/authors/SarahJMaas.jpg"
+              :src="sarahJM"
               alt="SarahJMaas"
             />
             <rect width="100%" height="100%" fill="#777" /><text
@@ -146,7 +145,7 @@
               class="bd-placeholder-img rounded-circle"
               width="140"
               height="140"
-              src="./public/img/authors/JKROWLING.jpg"
+              :src="jkRowling"
               alt="JKROWLING"
             />
             <rect width="100%" height="100%" fill="#777" /><text
@@ -186,7 +185,7 @@
               class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto"
               width="350"
               height="500"
-              src="./public/img/books/senhor dos aneis/SA1.jpg"
+              :src="sa1"
               role="img"
               preserveAspectRatio="xMidYMid slice"
               focusable="false"
@@ -215,7 +214,7 @@
               class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto"
               width="350"
               height="500"
-              src="./public/img/books/hp/HP1.jpg"
+              :src="hp1"
               alt="Pedra Filosofal"
               preserveAspectRatio="xMidYMid slice"
               focusable="false"
@@ -244,7 +243,7 @@
               class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto"
               width="350"
               height="500"
-              src="./public/img/books/trono de vidro/TV1.jpg"
+              :src="tv1"
               role="img"
               aria-label="Placeholder: 500x500"
               preserveAspectRatio="xMidYMid slice"
@@ -257,18 +256,35 @@
         <hr class="featurette-divider mb-0 mt-5" />
       </div>
     </main>
-    <Footer />
   </div>
 </template>
 
-<script setup>
-import Footer from "../../components/site/_partials/Footer.vue";
-import Navbar from "../../components/site/_partials/Navbar.vue";
-import Basic from "../../components/site/BasicSite.vue";
-</script>
-
 <script>
+import carousel1 from "../../../public/img/carousel/part1.jpg";
+import carousel2 from "../../../public/img/carousel/part2.jpg";
+import carousel3 from "../../../public/img/carousel/part3.jpg";
+import author1 from "../../../public/img/authors/JJTOKIEN.jpg";
+import author2 from "../../../public/img/authors/SarahJMaas.jpg";
+import author3 from "../../../public/img/authors/JKRowling.jpg";
+import book1 from "../../../public/img/books/hp/HP1.jpg";
+import book2 from "../../../public/img/books/senhor dos aneis/SA1.jpg";
+import book3 from "../../../public/img/books/trono de vidro/TV1.jpg";
+
 export default {
-  extends: Basic,
+  name: "HomeSite",
+  data() {
+    return {
+      cr1: carousel1,
+      cr2: carousel2,
+      cr3: carousel3,
+      jjtokien: author1,
+      sarahJM: author2,
+      jkRowling: author3,
+      hp1: book1,
+      sa1: book2,
+      tv1: book3,
+    };
+  },
 };
 </script>
+

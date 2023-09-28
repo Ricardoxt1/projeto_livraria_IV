@@ -11,7 +11,7 @@
       <meta name="Ricardo" content="Sistema de biblioteca" />
       <meta name="generator" content="Ricardo" />
       <title>Menu - Biblioteca Pedbot</title>
-      <link rel="shortcut icon" href="./public/img/logoLibraryBg.jpg" />
+      <link rel="shortcut icon" :href="logoLibraryBg" />
 
       <link
         rel="stylesheet"
@@ -30,7 +30,7 @@
           <div class="d-flex justify-content-between align-items-center">
             <img
               class="bg-light mx-4"
-              src="./public/img/logoLibrary.png"
+              :src="logoLibrary"
               width="150"
               alt=""
             />
@@ -176,7 +176,23 @@
         </footer>
       </div>
 
-      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js">
     </body>
   </html>
 </template>
+
+<script>
+import logoLibrary from "../../../public/img/logoLibrary.png";
+import logoLibraryBg from "../../../public/img/logoLibraryBg.jpg";
+
+export default {
+  name: "MenuSite",
+  data() {
+    return {
+      logoLibrary,
+      logoLibraryBg,
+    };
+  },
+};
+
+</script>

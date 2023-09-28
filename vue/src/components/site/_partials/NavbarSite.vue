@@ -2,7 +2,9 @@
   <header>
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-primary">
       <div class="container-fluid">
-        <a class="navbar-brand" href="/app/menu">Biblioteca Pedbot</a>
+        <router-link>
+          <a class="navbar-brand" to="/menu">Biblioteca Pedbot</a>
+        </router-link>
         <button
           class="navbar-toggler"
           type="button"
@@ -17,14 +19,18 @@
         <div class="collapse navbar-collapse" id="navbarCollapse">
           <ul class="navbar-nav me-auto mb-2 mb-md-0">
             <li class="nav-item">
-              <a class="nav-link" href="/app/home">Autores</a>
+              <router-link>
+                <a class="nav-link" to="/">Autores</a>
+              </router-link>
             </li>
           </ul>
           <ul class="navbar-nav mb-2 mx-4 mb-md-0">
             <li class="nav-item">
-              <a class="nav-link btn btn-info text-light" href="/app/menu"
-                >Menu</a
-              >
+              <route-link>
+                <a class="nav-link btn btn-info text-light" to="/menu"
+                  >Menu</a
+                >
+              </route-link>
             </li>
           </ul>
         </div>
@@ -32,3 +38,9 @@
     </nav>
   </header>
 </template>
+
+<script>
+export default {
+  name: "NavbarSite",
+};
+</script>

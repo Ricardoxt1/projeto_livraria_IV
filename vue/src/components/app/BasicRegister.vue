@@ -27,9 +27,7 @@
       <div class="container-fluid">
         <div class="row">
           <SidebarRegister />
-          <div class="col">
-
-          </div>
+          <div class="col"></div>
         </div>
         <Footer />
       </div>
@@ -50,13 +48,20 @@
 
 
 <script setup>
-import Navbar from "./_partials/Navbar.vue";
-import SidebarRegister from "./_partials/SidebarRegister.vue";
-import Footer from "./_partials/Footer.vue";
 </script>
 
 <script>
-export default Basic({
+import Navbar from "./_partials/NavbarApp.vue";
+import SidebarRegister from "./_partials/SidebarRegister.vue";
+import Footer from "./_partials/FooterApp.vue";
+
+export default {
+  name: "BasicRegister",
+  components: {
+    Navbar,
+    SidebarRegister,
+    Footer,
+  },
   setup() {},
-});
+};
 </script>
