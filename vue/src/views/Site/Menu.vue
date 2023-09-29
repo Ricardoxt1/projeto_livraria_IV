@@ -1,4 +1,4 @@
-<template>
+<template >
   <!DOCTYPE html>
   <html lang="en" class="h-100">
     <head>
@@ -11,7 +11,7 @@
       <meta name="Ricardo" content="Sistema de biblioteca" />
       <meta name="generator" content="Ricardo" />
       <title>Menu - Biblioteca Pedbot</title>
-      <link rel="shortcut icon" :href="logoLibraryBg" />
+      <link rel="shortcut icon" href="('@/assets/img/logoLibraryBg')" />
 
       <link
         rel="stylesheet"
@@ -182,15 +182,12 @@
 </template>
 
 <script>
-import logoLibrary from "../../../public/img/logoLibrary.png";
-import logoLibraryBg from "../../../public/img/logoLibraryBg.jpg";
 
 export default {
   name: "MenuSite",
   data() {
     return {
-      logoLibrary,
-      logoLibraryBg,
+   
     };
   },
 };

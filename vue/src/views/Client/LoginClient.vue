@@ -69,7 +69,7 @@
 
                       <div class="text-center pt-1 mb-5 pb-1">
                         <button
-                          class="btn btn-primary btn-md mb-3"
+                          class="btn btn-primary btn-md my-3"
                           type="submit"
                         >
                           Entrar
@@ -95,7 +95,8 @@
                 </div>
               </div>
               <div class="col-lg-6 d-flex align-items-center">
-                <img :src="require('@/assets/imgLogin.jpg')" alt="dwad" />
+                
+                <img :src="require('@/assets/img/client/imgLogin.jpg')" alt="dwad" height="900" width="1000" />
               </div>
             </div>
           </div>

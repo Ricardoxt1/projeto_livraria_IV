@@ -32,35 +32,23 @@
         href="https://getbootstrap.com/docs/5.2/assets/css/docs.css"
         rel="stylesheet"
       />
-    </head>
-    <Navbar />
-    <body>
-      <Home />
       <link
         href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
       />
+    </head>
+
+    <body>
+      <router-view />
+
     </body>
-    <Footer />
   </html>
 </template>
 
 <script>
-import logoLibraryBg from "../../../public/img/logoLibraryBg.jpg";
-import Home from "../../views/Site/Home.vue";
-import Navbar from "../components/site/_partials/Navbar.vue";
-import Footer from "./_partials/FooterSite.vue";
-
 export default {
   name: "BasicSite",
   data() {
-    return {
-      logoLibraryBg,
-    };
+    return {};
   },
-  components: {
-    Home,
-    Navbar,
-    Footer,
-  }
 };
 </script>

@@ -1,5 +1,6 @@
 <template>
   <div>
+    <BasicSite />
     <main style="background-color: rgb(178, 206, 239)">
       <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-indicators">
@@ -22,14 +23,13 @@
           <div class="carousel-item active">
             <img
               class="bd-placeholder-img"
-              width="100%"
+              width="2000"
               height="700"
-              :src="cr1.jpg"
+              :src="require('@/assets/img/carousel/part2.jpg')"
               aria-hidden="true"
               preserveAspectRatio="xMidYMid slice"
               focusable="false"
             />
-            <rect width="100%" height="100%" fill="#777" />
 
             <div class="container">
               <div class="carousel-caption text-start">
@@ -46,9 +46,9 @@
           <div class="carousel-item">
             <img
               class="bd-placeholder-img"
-              width="100%"
+              width="2000"
               height="700"
-              :src="cr2"
+              :src="require('@/assets/img/carousel/part3.jpg')"
               aria-hidden="true"
               preserveAspectRatio="xMidYMid slice"
               focusable="false"
@@ -97,7 +97,7 @@
               class="bd-placeholder-img rounded-circle"
               width="140"
               height="140"
-              :src="jjtokien"
+              :src="require('@/assets/img/authors/JJTOKIEN.jpg')"
               alt="JJTOKIEN"
             />
             <rect width="100%" height="100%" fill="#777" /><text
@@ -121,7 +121,7 @@
               class="bd-placeholder-img rounded-circle"
               width="140"
               height="140"
-              :src="sarahJM"
+              :src="require('@/assets/img/authors/SarahJMaas.jpg')"
               alt="SarahJMaas"
             />
             <rect width="100%" height="100%" fill="#777" /><text
@@ -145,7 +145,7 @@
               class="bd-placeholder-img rounded-circle"
               width="140"
               height="140"
-              :src="jkRowling"
+              :src="require('@/assets/img/authors/JKRowling.jpg')"
               alt="JKROWLING"
             />
             <rect width="100%" height="100%" fill="#777" /><text
@@ -185,7 +185,7 @@
               class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto"
               width="350"
               height="500"
-              :src="sa1"
+              :src="require('@/assets/img/books/senhor dos aneis/SA1.jpg')"
               role="img"
               preserveAspectRatio="xMidYMid slice"
               focusable="false"
@@ -214,7 +214,7 @@
               class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto"
               width="350"
               height="500"
-              :src="hp1"
+              :src="require('@/assets/img/books/hp/HP1.jpg')"
               alt="Pedra Filosofal"
               preserveAspectRatio="xMidYMid slice"
               focusable="false"
@@ -243,7 +243,7 @@
               class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto"
               width="350"
               height="500"
-              :src="tv1"
+              :src="require('@/assets/img/books/trono de vidro/TV1.jpg')"
               role="img"
               aria-label="Placeholder: 500x500"
               preserveAspectRatio="xMidYMid slice"
@@ -256,34 +256,22 @@
         <hr class="featurette-divider mb-0 mt-5" />
       </div>
     </main>
+    <FooterSite />
   </div>
 </template>
 
 <script>
-import carousel1 from "../../../public/img/carousel/part1.jpg";
-import carousel2 from "../../../public/img/carousel/part2.jpg";
-import carousel3 from "../../../public/img/carousel/part3.jpg";
-import author1 from "../../../public/img/authors/JJTOKIEN.jpg";
-import author2 from "../../../public/img/authors/SarahJMaas.jpg";
-import author3 from "../../../public/img/authors/JKRowling.jpg";
-import book1 from "../../../public/img/books/hp/HP1.jpg";
-import book2 from "../../../public/img/books/senhor dos aneis/SA1.jpg";
-import book3 from "../../../public/img/books/trono de vidro/TV1.jpg";
+import BasicSite from "@/components/site/BasicSite.vue";
+import FooterSite from "@/components/site/_partials/FooterSite.vue";
 
 export default {
   name: "HomeSite",
+  components: {
+    BasicSite,
+    FooterSite,
+  },
   data() {
-    return {
-      cr1: carousel1,
-      cr2: carousel2,
-      cr3: carousel3,
-      jjtokien: author1,
-      sarahJM: author2,
-      jkRowling: author3,
-      hp1: book1,
-      sa1: book2,
-      tv1: book3,
-    };
+    return {};
   },
 };
 </script>
