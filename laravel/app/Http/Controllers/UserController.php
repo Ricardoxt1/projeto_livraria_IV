@@ -2,22 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
-use \Illuminate\Http\Response;
-use App\Models\RegisterClient;
+use Illuminate\Support\Facades\Hash;
 
-class RegisterController extends Controller
+class UserController extends Controller
 {
-    private $registerClient;
+    private $user;
 
     /**
      * Constructs a new instance of the class.
-     * @param RegisterClient $client The registerClient object.
+     * @param UserController $client The user object.
      */
-    public function __construct(RegisterClient $registerClient)
+    public function __construct(UserController $user)
     {
-        $this->registerClient = $registerClient;
+        $this->user = $user;
     }
 
     /**
@@ -26,7 +24,7 @@ class RegisterController extends Controller
      */
     public function index()
     {
-        $client = $this->registerClient->all();
+        $client = $this->user->all();
         return response()->json($client, 200, ['msg' => 'Recurso listado com sucesso']);
     }
 
@@ -38,9 +36,9 @@ class RegisterController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate($this->registerClient->rules(), $this->registerClient->feedback());
+        $request->validate($this->user->rules(), $this->user->feedback());
 
-        $client = new $this->registerClient();
+        $client = new $this->user();
         $client->username = $request->username;
         $client->email = $request->email;
         $client->password = Hash::make($request->password);

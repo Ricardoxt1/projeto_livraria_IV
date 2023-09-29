@@ -28,6 +28,13 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::prefix('v1')->middleware('jwt.auth')->group(function () {
     // Define routes for the 'auth' apiResource
     Route::post('me', [AuthController::class, 'me']);
+
+    // Refresh the authentication token
+    Route::post('refresh', [AuthController::class, 'refresh']);
+
+    // Logout
+    Route::post('logout', [AuthController::class, 'logout']);
+
     // Define routes for the 'author' apiResource
     Route::apiResource('/author', AuthorController::class);
 
@@ -46,10 +53,10 @@ Route::prefix('v1')->middleware('jwt.auth')->group(function () {
     // Define routes for the 'rental' apiResource
     Route::apiResource('/rental', RentalController::class);
 
-    // Define routes for the 'register' apiResource
-    Route::apiResource('/register', RegisterController::class);
 });
 
 Route::post('login', [AuthController::class, 'login']);
-Route::post('logout', [AuthController::class, 'logout']);
-Route::post('refresh', [AuthController::class, 'refresh']);
+
+Route::get('/register', [\App\Http\Controllers\RegisterController::class, 'index']);
+
+Route::post('/register', [\App\Http\Controllers\RegisterController::class, 'create']);

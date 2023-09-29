@@ -13,11 +13,4 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/login/{erro?},{sucess?}', [\App\Http\Controllers\LoginController::class, 'index'])->name('site.login');
-
-Route::post('/login', [\App\Http\Controllers\LoginController::class, 'authenticate'])->name('site.login');
-
-Route::get('/register', [\App\Http\Controllers\RegisterController::class, 'index'])->name('site.register');
-
-Route::post('/register', [\App\Http\Controllers\RegisterController::class, 'create'])->name('site.register');
 
