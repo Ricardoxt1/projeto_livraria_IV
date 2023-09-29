@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthorController;
@@ -24,7 +25,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::middleware('autenticate:padrao')->prefix('/')->group(function () {
+Route::prefix('v1')->middleware('jwt.auth')->group(function () {
+    // Define routes for the 'auth' apiResource
+    Route::post('me', [AuthController::class, 'me']);
     // Define routes for the 'author' apiResource
     Route::apiResource('/author', AuthorController::class);
 
@@ -46,3 +49,7 @@ Route::middleware('autenticate:padrao')->prefix('/')->group(function () {
     // Define routes for the 'register' apiResource
     Route::apiResource('/register', RegisterController::class);
 });
+
+Route::post('login', [AuthController::class, 'login']);
+Route::post('logout', [AuthController::class, 'logout']);
+Route::post('refresh', [AuthController::class, 'refresh']);

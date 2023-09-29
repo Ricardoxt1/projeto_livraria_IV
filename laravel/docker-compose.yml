@@ -18,6 +18,8 @@ services:
     volumes:
       - ./:/var/www/html/
       - ./php/laravel.ini:/usr/local/etc/php/conf.d/laravel.ini
+    ports:
+      - "8000:8000"
     networks:
       - library-3
 

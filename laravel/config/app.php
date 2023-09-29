@@ -4,6 +4,9 @@ use Illuminate\Support\Facades\Facade;
 
 return [
 
+    // Set the 'port' configuration option to the value of the 'APP_PORT' environment variable, or fallback to 8000 if the environment variable is not set.
+    'port' => env('APP_PORT', 8000),
+
     /*
     |--------------------------------------------------------------------------
     | Application Name
@@ -194,6 +197,7 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        Tymon\JWTAuth\Providers\LaravelServiceProvider::class,
 
     ],
 
