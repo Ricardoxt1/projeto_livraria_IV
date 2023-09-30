@@ -7,7 +7,10 @@
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <title>Gerenciamento Pedbot</title>
 
-      <link rel="shortcut icon" :href="require('@/assets/img/logoLibraryBg.jpg')" />
+      <link
+        rel="shortcut icon"
+        :href="require('@/assets/img/logoLibraryBg.jpg')"
+      />
       <link
         rel="canonical"
         href="https://getbootstrap.com/docs/5.2/examples/dashboard/"
@@ -24,7 +27,7 @@
 
     <Navbar />
     <body>
-      <router-view/>
+      <router-view />
       <link
         href="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js"
         integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE"

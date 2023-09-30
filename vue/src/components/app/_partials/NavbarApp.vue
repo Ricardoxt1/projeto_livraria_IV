@@ -19,7 +19,7 @@
 
     <div class="navbar-nav">
       <div class="nav-item text-nowrap">
-        <a class="nav-link px-3" href="/app/menu">Voltar ao menu</a>
+        <a class="nav-link px-3" href="/menu">Voltar ao menu</a>
       </div>
     </div>
   </header>

@@ -17,56 +17,7 @@
                   <div class="row g-5 px-5 mx-3 py-5">
                     <div class="col-md-7 col-lg-12">
                       <h5 class="mb-3">Informações revelantes sobre o autor</h5>
-                      <!-- @if (isset($authors->id)) -->
-                      <form
-                        class="row g-3 needs-validation my-3"
-                        method="post"
-                        id="authorForm"
-                        novalidate=""
-                        action="{{ route('author.update', $authors->id) }}"
-                      >
-                        <!-- @else -->
-                        <form
-                          class="row g-3 needs-validation my-3"
-                          method="post"
-                          id="authorForm"
-                          novalidate=""
-                          action="{{ route('author.store') }}"
-                        >
-                          <!-- @endif -->
-                          <div class="col-md-4">
-                            <label for="validationCustom01" class="form-label"
-                              >Nome do autor</label
-                            >
-                            <input
-                              type="text"
-                              class="form-control"
-                              id="validationCustom01"
-                              value="{{ old('name', $authors->name) }}"
-                              name="name"
-                              placeholder="Digite seu nome"
-                              required=""
-                            />
-                            <div class="valid-feedback">Nome preenchido!</div>
-                            <div class="invalid-feedback">
-                              É necessario inserir um nome.
-                            </div>
-                          </div>
-                          <!-- @if (isset($authors->id)) -->
-                          <div class="col-12">
-                            <button type="submit" class="btn btn-success mt-5">
-                              Atualizar
-                            </button>
-                          </div>
-                          <!-- @else -->
-                          <div class="col-12">
-                            <button class="btn btn-primary mt-5" type="submit">
-                              Enviar
-                            </button>
-                          </div>
-                          <!-- @endif -->
-                        </form>
-                      </form>
+                      <Form />
                     </div>
                   </div>
                 </main>
@@ -81,9 +32,10 @@
 </template>
 
 <script>
+import BasicRegister from "@/components/app/BasicRegister.vue";
 import Sidebar from "@/components/app/_partials/SidebarRegister.vue";
 import Footer from "@/components/app/_partials/FooterApp.vue";
-import BasicRegister from "@/components/app/BasicRegister.vue";
+import Form from "@/views/App/author/FormCreateEdit.vue";
 export default {
   data() {
     return { titule: "Cadastro de autores" };
@@ -93,19 +45,8 @@ export default {
     BasicRegister,
     Sidebar,
     Footer,
+    Form,
   },
 };
-
-const authorForm = document.getElementById("authorForm");
-
-authorForm.addEventListener("submit", function (event) {
-  if (!authorForm.checkValidity()) {
-    event.preventDefault();
-    event.stopPropagation();
-  } else {
-    console.log("Formulário enviado!");
-  }
-
-  authorForm.classList.add("was-validated");
-});
 </script>
+

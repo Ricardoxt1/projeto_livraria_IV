@@ -64,8 +64,8 @@ const routes = [
     {
         path: '/createAuthor',
         name: 'CreateAuthor',
-
-        component: () => import(/* webpackChunkName: "createAuthor" */ '../views/App/author/CreateAuthor.vue')
+    
+        component: () => import(/* webpackChunkName: "createAuthor" */ '../views/App/author/CreateAuthor.vue'),
     },
     {
         path: '/createBook',
