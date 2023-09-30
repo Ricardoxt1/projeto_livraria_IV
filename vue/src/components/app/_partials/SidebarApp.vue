@@ -13,35 +13,35 @@
           </h6>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/app/customer">
+          <a class="nav-link" href="/customer">
             <span data-feather="listCostumers" class="align-text-bottom"
               >Usuarios</span
             >
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/app/book">
+          <a class="nav-link" href="/book">
             <span data-feather="listBooks" class="align-text-bottom"
               >Livros</span
             >
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/app/author">
+          <a class="nav-link" href="/author">
             <span data-feather="listAuthors" class="align-text-bottom"
               >Autores</span
             >
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/app/publisher">
+          <a class="nav-link" href="/publisher">
             <span data-feather="listPublishers" class="align-text-bottom"
               >Editoras</span
             >
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/app/employee">
+          <a class="nav-link" href="/employee">
             <span data-feather="listEmployees" class="align-text-bottom"
               >Funcionário(a)</span
             >
@@ -57,12 +57,12 @@
 
       <ul class="nav flex-column mb-2">
         <li class="nav-item">
-          <a class="nav-link" href="/app/rental">
+          <a class="nav-link" href="/rental">
             <span name="rentals" class="align-text-bottom">Alugueis</span>
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/app/customer/create">
+          <a class="nav-link" href="/createCustomer">
             <span data-feather="file-text" class="align-text-bottom"
               >Cadastrar</span
             >

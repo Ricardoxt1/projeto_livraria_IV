@@ -1,35 +1,17 @@
 <template >
-  <!DOCTYPE html>
-  <html lang="en" class="h-100">
-    <head>
-      <meta charset="UTF-8" />
-      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <meta
-        name="description"
-        content="Um projeto voltado ao sistema de gestão para biblioteca"
-      />
-      <meta name="Ricardo" content="Sistema de biblioteca" />
-      <meta name="generator" content="Ricardo" />
-      <title>Menu - Biblioteca Pedbot</title>
-      <link rel="shortcut icon" href="('@/assets/img/logoLibraryBg')" />
-
-      <link
-        rel="stylesheet"
-        href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-      />
-    </head>
-
+  <div>
+    <BasicMenuSite />
     <body
       class="d-flex h-100 text-center"
       style="
-        background-image: url('https://images.unsplash.com/photo-1481627834876-b7833e8f5570?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=928&q=80');
+        background-image: url('https://images.unsplash.com/photo-1481627834876-b7833e8f5570?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=900&&q=90');
       "
     >
       <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
         <header class="mb-auto">
           <div class="d-flex justify-content-between align-items-center">
             <img
-              class="bg-light mx-4"
+              class="bg-light mx-5"
               src="@/assets/img/logoLibrary.png"
               width="150"
               alt=""
@@ -41,7 +23,7 @@
                 aria-label="Vertical button group"
               >
                 <div class="pl-3 mb-5">
-                  <a href="/logout" class="btn btn-danger">Logout</a>
+                  <a href="/login" class="btn btn-danger">Logout</a>
                 </div>
                 <div class="btn-group dropstart" role="group">
                   <button
@@ -72,9 +54,7 @@
                       <hr class="dropdown-divider" />
                     </li>
                     <li>
-                      <a class="dropdown-item" href="/employee"
-                        >Funcionarios</a
-                      >
+                      <a class="dropdown-item" href="/employee">Funcionarios</a>
                     </li>
                     <li>
                       <hr class="dropdown-divider" />
@@ -134,15 +114,15 @@
           <!-- {{ sucess}} -->
         </header>
 
-        <main class="px-5 mb-5">
-          <div class="container w-50">
+        <main class="px-5 my-5 py-4">
+          <div class="container w-50 py-5">
             <h2
               class="d-inline-flex shadow-lg bg-dark p-3 mx-5 text-white rounded"
             >
               Sistema de biblioteca Pedbot
             </h2>
           </div>
-          <div class="container w-50">
+          <div class="container w-50 pb-4">
             <p
               class="d-inline-flex lead shadow-lg p-2 mx-3 bg-dark text-white rounded"
             >
@@ -150,46 +130,47 @@
             </p>
           </div>
           <!-- seta -->
-          <svg
-            class="bg-transparent text-light bi bi-arrow-down-square-fill"
-            xmlns="http://www.w3.org/2000/svg"
-            width="30"
-            height="40"
-            fill="currentColor"
-            viewBox="0 5 20 10"
-          >
-            <path
-              d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm6.5 4.5v5.793l2.146-2.147a.5.5 0 0 1 .708.708l-3 3a.5.5 0 0 1-.708 0l-3-3a.5.5 0 1 1 .708-.708L7.5 10.293V4.5a.5.5 0 0 1 1 0z"
-            />
-          </svg>
-          <p class="lead">
+          <div class="py-4">
+            <svg
+              class="bg-transparent text-light bi bi-arrow-down-square-fill"
+              xmlns="http://www.w3.org/2000/svg"
+              width="30"
+              height="40"
+              fill="currentColor"
+              viewBox="0 5 20 10"
+            >
+              <path
+                d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm6.5 4.5v5.793l2.146-2.147a.5.5 0 0 1 .708.708l-3 3a.5.5 0 0 1-.708 0l-3-3a.5.5 0 1 1 .708-.708L7.5 10.293V4.5a.5.5 0 0 1 1 0z"
+              />
+            </svg>
+          </div>
+          <p class="lead pb-4">
             <a href="/" class="btn btn-md btn-light" tabindex="-1"
               >Ver contéudo</a
             >
           </p>
         </main>
-
-        <footer class="mt-auto text-light py-2">
-          <div class="container">
-            <p class="mb-1">© 2023 Biblioteca Pedbot</p>
-          </div>
-        </footer>
       </div>
-
-      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js">
+      <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+      />
     </body>
-  </html>
+    <FooterSite />
+  </div>
 </template>
 
 <script>
+import BasicMenuSite from "@/components/site/BasicMenuSite.vue";
+import FooterSite from "@/components/site/_partials/FooterSite.vue";
 
 export default {
   name: "MenuSite",
   data() {
-    return {
-   
-    };
+    return {};
+  },
+  components: {
+    BasicMenuSite,
+    FooterSite,
   },
 };
-
 </script>

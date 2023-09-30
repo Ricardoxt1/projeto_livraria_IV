@@ -11,7 +11,7 @@
       />
       <meta name="" content="Ricardo" />
       <title>Home - Biblioteca Pedbot</title>
-      <link rel="shortcut icon" :href="logoLibraryBg" />
+      <link rel="shortcut icon" :href="require('@/assets/img/logoLibraryBg.jpg')" />
       <link
         rel="canonical"
         href="https://getbootstrap.com/docs/5.2/examples/album-rtl/"

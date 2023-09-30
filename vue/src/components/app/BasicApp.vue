@@ -6,13 +6,16 @@
       <meta name="viewport" content="width=device-width, initial-scale=1" />
       <title>Listagem</title>
       <meta
-        name="description"
+        name="delinkion"
         content="Um projeto voltado ao sistema de gestão para biblioteca"
       />
       <meta name="Ricardo" content="Sistema de biblioteca" />
       <meta name="generator" content="Ricardo" />
 
-      <link rel="shortcut icon" href="img/logoLibraryBg.jpg" />
+      <link
+        rel="shortcut icon"
+        :href="require('@/assets/img/logoLibraryBg.jpg')"
+      />
       <link
         href="https://getbootstrap.com/docs/5.2/examples/album/"
         rel="canonical"
@@ -31,51 +34,45 @@
       />
     </head>
 
+    <Navbar />
     <body>
-      <Navbar />
-      <div class="container-fluid">
-        <div class="row">
-          <Sidebar />
-        </div>
-        <Footer />
-      </div>
+      <router-view/>
 
-      <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-      <script
-        src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js"
+      <link href="https://code.jquery.com/jquery-3.2.1.slim.min.js" />
+      <link
+        href="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+      />
+      <link
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+      />
+      <link
+        href="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js"
         integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE"
         crossorigin="anonymous"
-      ></script>
-      <script
-        src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"
+      />
+      <link
+        href="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"
         integrity="sha384-zNy6FEbO50N+Cg5wap8IKA4M/ZnLJgzc6w2NqACZaK0u0FXfOWRRJOnQtpZun8ha"
         crossorigin="anonymous"
-      ></script>
-      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+      />
+      <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+      />
     </body>
   </html>
 </template>
 
 
 <script>
-import logoLibraryBg from "../../../public/img/logoLibraryBg.jpg";
 import Navbar from "./_partials/NavbarApp.vue";
-import Sidebar from "./_partials/SidebarApp.vue";
-import Footer from "./_partials/FooterApp.vue";
 
 export default {
   name: "BasicApp",
   components: {
     Navbar,
-    Sidebar,
-    Footer,
   },
-  data: () => ({
-    logoLibraryBg,
-  }),
-  
+  data: () => ({}),
+
   setup() {},
 };
 </script>

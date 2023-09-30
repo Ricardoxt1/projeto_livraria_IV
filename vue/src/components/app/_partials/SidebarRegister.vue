@@ -13,35 +13,35 @@
           </h6>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/app/customer/create">
+          <a class="nav-link" href="/createCustomer">
             <span data-feather="registerCostumer" class="align-text-bottom"
               >Usuarios</span
             >
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/app/book/create">
+          <a class="nav-link" href="/createBook">
             <span data-feather="registerBook" class="align-text-bottom"
               >Livros</span
             >
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/app/author/create">
+          <a class="nav-link" href="/createAuthor">
             <span data-feather="registerAuthor" class="align-text-bottom"
               >Autores</span
             >
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/app/publisher/create">
+          <a class="nav-link" href="/create/Publisher">
             <span data-feather="registerPublisher" class="align-text-bottom"
               >Editoras</span
             >
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/app/employee/create">
+          <a class="nav-link" href="/createEmployee">
             <span data-feather="registerEmployee" class="align-text-bottom"
               >Funcionário(a)</span
             >
@@ -55,12 +55,12 @@
         </h6>
         <ul class="nav flex-column mb-2">
           <li class="nav-item">
-            <a class="nav-link" href="/app/rental/create">
+            <a class="nav-link" href="/createRentals">
               <span name="rentals" class="align-text-bottom">Alugar livro</span>
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/app/customer">
+            <a class="nav-link" href="/customer">
               <span data-feather="list" class="align-text-bottom"
                 >Listagem</span
               >
