@@ -19,7 +19,9 @@ services:
       - ./:/var/www/html/
       - ./php/laravel.ini:/usr/local/etc/php/conf.d/laravel.ini
     ports:
-      - "8000:8000"
+      - "8000:80"
+    expose:
+      - "9000"
     networks:
       - library-3
 
@@ -79,10 +81,10 @@ services:
     restart: unless-stopped
     tty: true
     ports:
-        - "33061:3306"
+      - "33061:3306"
     environment:
-        MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
-        MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: ${DB_DATABASE}
     volumes:
       - ../mysql:/mysql
     networks:
