@@ -2,9 +2,9 @@
   <header
     class="navbar navbar-dark sticky-top bg-primary flex-md-nowrap py-2 shadow"
   >
-    <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6" href="#"
-      >Biblioteca Pedbot</a
-    >
+    <router-link class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6" :to="'/'"
+      >Biblioteca Pedbot
+    </router-link>
     <button
       class="navbar-toggler position-center d-md-none collapsed"
       type="button"
@@ -19,7 +19,9 @@
 
     <div class="navbar-nav">
       <div class="nav-item text-nowrap">
-        <a class="nav-link px-3" href="/menu">Voltar ao menu</a>
+        <router-link class="nav-link px-3" :to="'/menu'"
+          >Voltar ao menu</router-link
+        >
       </div>
     </div>
   </header>

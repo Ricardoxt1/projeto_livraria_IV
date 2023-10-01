@@ -18,18 +18,12 @@
                 </tr>
               </thead>
 
-              <form action="" method="get">
+              <form av-show="showForm" @submit.prevent="createPublisher">
                 <tbody>
-                  <!-- @foreach ($publishers as $publisher) -->
-                  <tr>
-                    <input
-                      type="hidden"
-                      name="id"
-                      value="{{ $publisher->id }}"
-                    />
-                    <td>publisher_name</td>
+                  <tr v-for="publisher in publishers" :key="publisher.id">
+                    <td name="name">{{ publisher.name }}</td>
                     <td class="text-center">
-                      <a href="editPublisher"
+                      <a :to="'publisherEdit/' + publisher.id"
                         ><svg
                           xmlns="http://www.w3.org/2000/svg"
                           width="18"
@@ -49,15 +43,8 @@
                       </a>
                     </td>
                     <td class="text-center">
-                      <form
-                        id="form_{{ $publisher->id }}"
-                        method="post"
-                        action=""
-                      >
-                        <a
-                          href="#"
-                          onclick="document.getElementById('form_{{ $publisher->id }}').submit()"
-                        >
+                      <form method="post" action="#">
+                        <a href="#" :onclick="deletePublisher(publisher.id)">
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             width="18"
@@ -77,10 +64,11 @@
                       </form>
                     </td>
                   </tr>
-                  <!-- @endforeach -->
                 </tbody>
               </form>
             </table>
+            <div class="alert alert-danger" v-if="warning">{{ warning }}</div>
+            <div class="alert alert-success" v-if="success">{{ success }}</div>
           </div>
         </main>
       </div>
@@ -93,9 +81,79 @@
 import Sidebar from "@/components/app/_partials/SidebarApp.vue";
 import Footer from "@/components/app/_partials/FooterApp.vue";
 import BasicApp from "@/components/app/BasicApp.vue";
+import axios from "axios";
 export default {
+  name: "ListPublisher",
+  mounted() {
+    // Check if user is logged in
+    const isLogged = localStorage.isLogged;
+    if (isLogged != "true") {
+      // Redirect to login page if not logged in
+      this.$router.push("/login");
+    } else {
+      // Fetch publishers if logged in
+      this.fetchPublishers();
+    }
+  },
   data() {
-    return { titule: "Listagem de editoras" };
+    return {
+      warning: null,
+      success: null,
+      publishers: [],
+      titule: "Listagem de editoras",
+    };
+  },
+  methods: {
+    /**
+     * Deletes a publisher given its ID
+     * @param {number} id - The ID of the publisher to delete
+     */
+    deletePublisher(id) {
+      fetch("http://localhost/api/v1/publisher" + id, {
+        method: "DELETE",
+        headers: {
+          Authorization: "Bearer " + window.localStorage.token,
+        },
+      })
+        .then((response) => {
+          if (response.ok) {
+            console.log("Editora deletada com sucesso");
+            // Reload the page after successful deletion
+            setTimeout(() => {
+              location.reload();
+            }, 800);
+            this.success = "Editora deletada com sucesso";
+          } else {
+            // Display warning message if deletion fails
+            (this.warning = "Erro ao deletar editora"), response.status;
+          }
+        })
+        .catch((error) => {
+          // Display warning message if an error occurs during deletion
+          (this.warning = "Erro ao deletar editora"), error;
+        });
+    },
+
+    /**
+     * Fetches publishers from the API
+     */
+    fetchPublishers() {
+      axios
+        .get("http://localhost/api/v1/publisher", {
+          headers: {
+            Authorization: "Bearer " + window.localStorage.token,
+          },
+        })
+        .then((response) => {
+          // Store fetched publishers in the component's data
+          this.publishers = response.data;
+          console.log(response.data);
+        })
+        .catch((error) => {
+          // Log any errors that occur during the fetch request
+          console.log(error);
+        });
+    },
   },
   setup() {},
   components: {

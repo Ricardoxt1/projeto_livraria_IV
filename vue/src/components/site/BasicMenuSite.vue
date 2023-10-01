@@ -11,12 +11,8 @@
       <meta name="Ricardo" content="Sistema de biblioteca" />
       <meta name="generator" content="Ricardo" />
       <title>Menu - Biblioteca Pedbot</title>
-      <link rel="shortcut icon" href="('@/assets/img/logoLibraryBg')" />
+      <link rel="shortcut icon" :href="require('@/assets/img/logoLibraryBg.jpg')" />
 
-      <link
-        rel="stylesheet"
-        href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-      />
     </head>
 
     <body>

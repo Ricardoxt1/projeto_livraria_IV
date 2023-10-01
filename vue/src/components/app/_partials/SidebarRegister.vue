@@ -13,39 +13,39 @@
           </h6>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/createCustomer">
+          <router-link class="nav-link" :to="'/createCustomer'">
             <span data-feather="registerCostumer" class="align-text-bottom"
               >Usuarios</span
             >
-          </a>
+          </router-link>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/createBook">
+          <router-link class="nav-link" :to="'/createBook'">
             <span data-feather="registerBook" class="align-text-bottom"
               >Livros</span
             >
-          </a>
+          </router-link>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/createAuthor">
+          <router-link class="nav-link" :to="'/createAuthor'">
             <span data-feather="registerAuthor" class="align-text-bottom"
               >Autores</span
             >
-          </a>
+          </router-link>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/create/Publisher">
+          <router-link class="nav-link" :to="'/createPublisher'">
             <span data-feather="registerPublisher" class="align-text-bottom"
               >Editoras</span
             >
-          </a>
+          </router-link>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/createEmployee">
+          <router-link class="nav-link" :to="'/createEmployee'">
             <span data-feather="registerEmployee" class="align-text-bottom"
               >Funcionário(a)</span
             >
-          </a>
+          </router-link>
         </li>
 
         <h6
@@ -55,16 +55,16 @@
         </h6>
         <ul class="nav flex-column mb-2">
           <li class="nav-item">
-            <a class="nav-link" href="/createRentals">
+            <router-link class="nav-link" :to="'/createRental'">
               <span name="rentals" class="align-text-bottom">Alugar livro</span>
-            </a>
+            </router-link>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/customer">
+            <router-link class="nav-link" :to="'/customer'">
               <span data-feather="list" class="align-text-bottom"
                 >Listagem</span
               >
-            </a>
+            </router-link>
           </li>
         </ul>
       </ul>

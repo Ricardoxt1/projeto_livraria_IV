@@ -8,7 +8,6 @@
           <div class="pt-3 pb-2 my-5 text-center">
             <h1 class="h2">{{ titule }}</h1>
           </div>
-          <!-- {{-- {{ status }} --}} -->
           <div class="table-responsive">
             <table class="table table-striped table-ls">
               <thead>
@@ -22,18 +21,16 @@
                   <th scope="col" class="text-danger text-center">Deletar</th>
                 </tr>
               </thead>
-              <form action="" method="get">
+              <form v-show="showForm" @submit.prevent="createRental">
                 <tbody>
-                  <!-- @foreach ($rentals as $rental) -->
-                  <tr>
-                    <input type="hidden" name="id" value="{{ $rental->id }}" />
-                    <td>customer_name</td>
-                    <td>book_titule</td>
-                    <td>rental_rental</td>
-                    <td>rental_delivery</td>
-                    <td>rental_employee_name</td>
+                  <tr v-for="rental in rentals" :key="rental.id">
+                    <td name="customer_name">{{ rental.customer_name }}</td>
+                    <td name="book_titule">{{ rental.book_titule }}</td>
+                    <td name="rental">{{ rental.rental }}</td>
+                    <td name="delivery">{{ rental.delivery }}</td>
+                    <td name="employee_name">{{ rental.employee_name }}</td>
                     <td class="text-center">
-                      <a href="editRental"
+                      <a :to="'rentalEdit/' + rental.id"
                         ><svg
                           xmlns="http://www.w3.org/2000/svg"
                           width="18"
@@ -53,15 +50,8 @@
                       </a>
                     </td>
                     <td class="text-center">
-                      <form
-                        id="form_{{ $rental->id }}"
-                        method="post"
-                        action="{{ route('rental.destroy', $rental->id) }}"
-                      >
-                        <a
-                          href="#"
-                          onclick="document.getElementById('form_{{ $rental->id }}').submit()"
-                        >
+                      <form method="post" action="#">
+                        <a href="#" :onclick="deleteRental(rental.id)">
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             width="18"
@@ -81,10 +71,11 @@
                       </form>
                     </td>
                   </tr>
-                  <!-- @endforeach -->
                 </tbody>
               </form>
             </table>
+            <div class="alert alert-danger" v-if="warning">{{ warning }}</div>
+            <div class="alert alert-success" v-if="success">{{ success }}</div>
           </div>
         </main>
       </div>
@@ -97,11 +88,69 @@
 import Sidebar from "@/components/app/_partials/SidebarApp.vue";
 import Footer from "@/components/app/_partials/FooterApp.vue";
 import BasicApp from "@/components/app/BasicApp.vue";
+import axios from "axios";
+
 export default {
-  data() {
-    return { titule: "Listagem de alugueis" };
+  name: "ListRental",
+  mounted() {
+    const isLogged = localStorage.isLogged;
+    if (isLogged != "true") {
+      this.$router.push("/login");
+    } else {
+      this.fetchRentals();
+    }
   },
-  setup() {},
+created() {
+  this.fetchRentals();
+},
+  data() {
+    return {
+      warning: null,
+      success: null,
+      employees: [],
+      titule: "Listagem de alugueis",
+    };
+  },
+  methods: {
+    deleteRental(id) {
+      fetch("http://localhost/api/v1/rental/" + id, {
+        method: "DELETE",
+        headers: {
+          Authorization: "Bearer " + window.localStorage.token,
+        },
+      })
+        .then((response) => {
+          if (response.ok) {
+            console.log("Aluguel deletado com sucesso");
+            setTimeout(() => {
+              location.reload();
+            }, 800);
+            this.success = "Aluguel deletado com sucesso";
+          } else {
+            this.warning = "Erro ao excluir aluguel:" + response.status;
+          }
+        })
+        .catch((error) => {
+          console.error("Erro ao excluir aluguel:", error);
+        });
+    },
+
+    fetchRentals() {
+      axios
+        .get("http://localhost/api/v1/rental", {
+          headers: {
+            Authorization: "Bearer " + window.localStorage.token,
+          },
+        })
+        .then((response) => {
+          this.rentals = response.data;
+          console.log(response.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+  },
   components: {
     BasicApp,
     Sidebar,

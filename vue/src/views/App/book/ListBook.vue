@@ -17,7 +17,6 @@
                 <nav aria-label="Page navigation example ">
                   <div class="col-10">
                     <ul class="pagination">
-                      <!-- @foreach ($books as $book) -->
                       <div class="card shadow-sm mx-2">
                         <svg
                           class="bd-placeholder-img card-img-top"
@@ -40,23 +39,31 @@
                           </text>
                         </svg>
 
-                        <div class="card-body p-4">
-                          <p class="card-text" name="titule">Titulo: titule</p>
-                          <p class="card-text" name="page">Páginas: page</p>
+                        <div
+                          v-for="book in books"
+                          :key="book.id"
+                          class="card-body p-4"
+                        >
+                          <p class="card-text" name="titule">
+                            Titulo: {{ book.titule }}
+                          </p>
+                          <p class="card-text" name="page">
+                            Páginas: {{ book.page }}
+                          </p>
                           <p class="card-text" name="realese_date">
-                            Lançamento: realese_date
+                            Lançamento: {{ book.realese_date }}
                           </p>
                           <p class="card-text" name="author_id">
-                            Autor(a): author_name
+                            Autor(a): {{ book.author.name }}
                           </p>
                           <p class="card-text" name="publisher_id">
-                            Editora: publisher_name
+                            Editora: {{ book.publisher.name }}
                           </p>
                           <div
                             class="d-flex justify-content-between align-items-center"
                           >
                             <div class="btn-group m-1">
-                              <a class="m-2" href="book.edit"
+                              <a class="m-2" :to="'bookEdit/' + book.id">
                                 ><svg
                                   xmlns="http://www.w3.org/2000/svg"
                                   width="22"
@@ -74,15 +81,11 @@
                                   />
                                 </svg>
                               </a>
-                              <form
-                                id="form_{{ $book->id }}"
-                                method="post"
-                                action="book.destroy"
-                              >
+                              <form method="post" action="#">
                                 <a
                                   class="m-2 text-danger"
                                   href="#"
-                                  onclick="document.getElementById('form_{{ $book->id }}').submit()"
+                                  :onclick="deleteBook(book.id)"
                                 >
                                   <svg
                                     xmlns="http://www.w3.org/2000/svg"
@@ -105,14 +108,14 @@
                           </div>
                         </div>
                       </div>
-                      <!-- @endforeach -->
                     </ul>
                   </div>
                 </nav>
               </div>
             </div>
           </div>
-          <!-- {{-- {{pagination}} --}} -->
+          <div class="alert alert-danger" v-if="warning">{{ warning }}</div>
+          <div class="alert alert-success" v-if="success">{{ success }}</div>
         </main>
       </div>
     </div>
@@ -124,10 +127,84 @@
 import Sidebar from "@/components/app/_partials/SidebarApp.vue";
 import Footer from "@/components/app/_partials/FooterApp.vue";
 import BasicApp from "@/components/app/BasicApp.vue";
+import axios from "axios";
+
 export default {
-  setup() {},
+  name: "ListBook",
+  mounted() {
+    // Check if user is logged in
+    const isLogged = localStorage.isLogged;
+    if (isLogged != "true") {
+      // Redirect to login page if not logged in
+      this.$router.push("/login");
+    } else {
+      // Fetch books data if logged in
+      this.fetchBooks();
+    }
+  },
+  created() {
+    // Fetch books data on component creation
+    this.fetchBooks();
+  },
   data() {
-    return { titule: "Listagem de livros"}
+    return {
+      warning: null,
+      success: null,
+      books: [],
+      titule: "Listagem de livros",
+    };
+  },
+  methods: {
+    /**
+     * Delete a book by its ID
+     * @param {number} id - The ID of the book to delete
+     */
+    deleteBook(id) {
+      // Send DELETE request to the API
+      fetch("http://localhost/api/v1/book/" + id, {
+        method: "DELETE",
+        headers: {
+          Authorization: "Bearer " + window.localStorage.token,
+        },
+      })
+        .then((response) => {
+          if (response.ok) {
+            // Book successfully deleted
+            console.log("Livro deletado com sucesso");
+            setTimeout(() => {
+              location.reload();
+            }, 800);
+            this.success = "Livro deletado com sucesso";
+          } else {
+            // Error deleting book
+            this.warning = "Erro ao excluir livro:" + response.status;
+          }
+        })
+        .catch((error) => {
+          console.error("Erro ao excluir livro:", error);
+        });
+    },
+
+    /**
+     * Fetch books data from the API
+     */
+    fetchBooks() {
+      // Send GET request to the API
+      axios
+        .get("http://localhost/api/v1/book", {
+          headers: {
+            Authorization: "Bearer " + window.localStorage.token,
+          },
+        })
+        .then((response) => {
+          // Update books data with the response data
+          this.books = response.data;
+          console.log(response.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
   },
   components: {
     BasicApp,

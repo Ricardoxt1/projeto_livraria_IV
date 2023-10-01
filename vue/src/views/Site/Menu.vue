@@ -135,7 +135,7 @@
               class="bg-transparent text-light bi bi-arrow-down-square-fill"
               xmlns="http://www.w3.org/2000/svg"
               width="30"
-              height="40"
+              height="50"
               fill="currentColor"
               viewBox="0 5 20 10"
             >
@@ -151,9 +151,7 @@
           </p>
         </main>
       </div>
-      <link
-        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
-      />
+     
     </body>
     <FooterSite />
   </div>

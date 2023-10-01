@@ -21,24 +21,18 @@
                   <th scope="col" class="text-danger text-center">Deletar</th>
                 </tr>
               </thead>
-              <form action="" method="get">
+              <form v-show="showForm" @submit.prevent="createEmployee">
                 <tbody>
-                  <!-- @foreach ($employees as $employee) -->
-                  <tr>
-                    <input
-                      type="hidden"
-                      name="id"
-                      value="{{ $employee->id }}"
-                    />
-                    <td>employee_name</td>
-                    <td>employee_pis</td>
-                    <td>employee_office</td>
-                    <td>employee_departament</td>
-                    <!-- @foreach ($libraries as $library) -->
-                    <td>library_name</td>
-                    <!-- @endforeach -->
+                  <tr v-for="employee in employees" :key="employee.id">
+                    <td name="name">{{ employee.name }}</td>
+                    <td name="pis">{{ employee.pis }}</td>
+                    <td name="office">{{ employee.office }}</td>
+                    <td name="department">{{ employee.department }}></td>
+                    <td v-for="library in employee.libraries" :key="library.id">
+                      {{ library.name }}
+                    </td>
                     <td class="text-center">
-                      <a href="{{ route('employee.edit', $employee->id) }}"
+                      <a :to="'employeeEdit/' + employee.id"
                         ><svg
                           xmlns="http://www.w3.org/2000/svg"
                           width="18"
@@ -58,15 +52,8 @@
                       </a>
                     </td>
                     <td class="text-center">
-                      <form
-                        id="form_{{ $employee->id }}"
-                        method="post"
-                        action="{{ route('employee.destroy', $employee->id) }}"
-                      >
-                        <a
-                          href="#"
-                          onclick="document.getElementById('form_{{ $employee->id }}').submit()"
-                        >
+                      <form method="post" action="#">
+                        <a href="#" @onclick="deleteEmployee(employee.id)">
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             width="18"
@@ -86,10 +73,11 @@
                       </form>
                     </td>
                   </tr>
-                  <!-- @endforeach -->
                 </tbody>
               </form>
             </table>
+            <div class="alert alert-danger" v-if="warning">{{ warning }}</div>
+            <div class="alert alert-success" v-if="success">{{ success }}</div>
           </div>
         </main>
       </div>
@@ -102,11 +90,79 @@
 import Sidebar from "@/components/app/_partials/SidebarApp.vue";
 import Footer from "@/components/app/_partials/FooterApp.vue";
 import BasicApp from "@/components/app/BasicApp.vue";
+import axios from "axios";
+
 export default {
-  data() {
-    return { titule: "Listagem de funcionários"}
+  name: "ListEmployee",
+  mounted() {
+    // Check if user is logged in
+    const isLogged = localStorage.isLogged;
+    if (isLogged != "true") {
+      this.$router.push("/login");
+    } else {
+      // Fetch employees data
+      this.fetchEmployees();
+    }
   },
-  setup() {},
+  created() {
+    // Fetch employees data
+    this.fetchEmployees();
+  },
+  data() {
+    return {
+      warning: null,
+      success: null,
+      employees: [],
+      titule: "Listagem de funcionários",
+    };
+  },
+  methods: {
+    /**
+     * Delete an employee by ID
+     * @param {number} id - The ID of the employee to delete
+     */
+    deleteEmployee(id) {
+      fetch("http://localhost/api/v1/employee/" + id, {
+        method: "DELETE",
+        headers: {
+          Authorization: "Bearer " + window.localStorage.token,
+        },
+      })
+        .then((response) => {
+          if (response.ok) {
+            console.log("Funcionário deletado com sucesso");
+            setTimeout(() => {
+              location.reload();
+            }, 800);
+            this.success = "Funcionário deletado com sucesso";
+          } else {
+            this.warning = "Erro ao excluir funcionário:" + response.status;
+          }
+        })
+        .catch((error) => {
+          console.error("Erro ao excluir funcionário:", error);
+        });
+    },
+
+    /**
+     * Fetch employees data from the API
+     */
+    fetchEmployees() {
+      axios
+        .get("http://localhost/api/v1/employee", {
+          headers: {
+            Authorization: "Bearer " + window.localStorage.token,
+          },
+        })
+        .then((response) => {
+          this.employees = response.data;
+          console.log(response.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+  },
   components: {
     BasicApp,
     Sidebar,

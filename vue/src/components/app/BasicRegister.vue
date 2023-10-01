@@ -11,36 +11,12 @@
         rel="shortcut icon"
         :href="require('@/assets/img/logoLibraryBg.jpg')"
       />
-      <link
-        rel="canonical"
-        href="https://getbootstrap.com/docs/5.2/examples/dashboard/"
-      />
-      <link
-        href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
-        rel="stylesheet"
-      />
-      <link
-        href="https://getbootstrap.com/docs/5.2/assets/css/docs.css"
-        rel="stylesheet"
-      />
+     
     </head>
 
     <Navbar />
     <body>
       <router-view />
-      <link
-        href="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js"
-        integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE"
-        crossorigin="anonymous"
-      />
-      <link
-        href="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"
-        integrity="sha384-zNy6FEbO50N+Cg5wap8IKA4M/ZnLJgzc6w2NqACZaK0u0FXfOWRRJOnQtpZun8ha"
-        crossorigin="anonymous"
-      />
-      <link
-        href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
-      />
     </body>
   </html>
 </template>

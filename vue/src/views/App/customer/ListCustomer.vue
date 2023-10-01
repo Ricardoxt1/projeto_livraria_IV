@@ -8,7 +8,6 @@
           <div class="text-center pt-3 pb-2 my-5">
             <h1 class="h2">{{ titule }}</h1>
           </div>
-          <!-- {{-- {{ status }} --}} -->
           <div class="table-responsive">
             <table class="table table-striped table-ls">
               <thead>
@@ -23,19 +22,17 @@
                 </tr>
               </thead>
 
-              <form action="" method="get">
+              <form v-show="showForm" @submit.prevent="createCustomer">
                 <tbody>
-                  <!-- @foreach ($customers as $customer) -->
-                  <tr>
-                    <input type="hidden" name="id" value="" />
-                    <td name="name">name</td>
-                    <td name="cpf">cpf</td>
-                    <td name="email">email</td>
-                    <td name="phone_number">phone_number</td>
-                    <td name="address">address</td>
+                  <tr v-for="customer in customers" :key="customer.id">
+                    <td name="name">{{ customer.name }}</td>
+                    <td name="cpf">{{ customer.cpf }}</td>
+                    <td name="email">{{ customer.email }}</td>
+                    <td name="phone_number">{{ customer.phone_number }}</td>
+                    <td name="address">{{ customer.address }}</td>
 
                     <td class="text-center">
-                      <a href="/editCustomer"
+                      <a :to="'customerEdit/' + customer.id"
                         ><svg
                           xmlns="http://www.w3.org/2000/svg"
                           width="18"
@@ -56,8 +53,8 @@
                     </td>
 
                     <td class="text-center">
-                      <form method="post" action="/destroyCustomer">
-                        <a href="">
+                      <form method="post" action="">
+                        <a href="#" @click="deleteCustomer(customer.id)">
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             width="18"
@@ -77,10 +74,11 @@
                       </form>
                     </td>
                   </tr>
-                  <!-- @endforeach -->
                 </tbody>
               </form>
             </table>
+            <div class="alert alert-danger" v-if="warning">{{ warning }}</div>
+            <div class="alert alert-success" v-if="success">{{ success }}</div>
           </div>
         </main>
       </div>
@@ -93,10 +91,87 @@
 import Sidebar from "@/components/app/_partials/SidebarApp.vue";
 import Footer from "@/components/app/_partials/FooterApp.vue";
 import BasicApp from "@/components/app/BasicApp.vue";
+import axios from "axios";
 export default {
-  setup() {},
+  name: "ListCustomer",
+  
+  /**
+   * Mounts the component and performs necessary actions based on the user's login status.
+   * @return {void}
+   */
+  mounted() {
+    const isLogged = localStorage.isLogged;
+    if (isLogged != "true") {
+      this.$router.push("/login");
+    } else {
+      axios.get("http://localhost/api/v1/customer", {
+        headers: {
+          Authorization: "Bearer " + window.localStorage.token,
+        },
+      });
+    }
+  },
+  
+  /**
+   * Fetches customer data from the server and stores it in the component's state.
+   * @return {void}
+   */
+  created() {
+    axios
+      .get("http://localhost/api/v1/customer", {
+        headers: {
+          Authorization: "Bearer " + window.localStorage.token,
+        },
+      })
+      .then((response) => {
+        this.customers = response.data;
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  },
+
+  /**
+   * Initializes the data for the component.
+   * @return {Object} - An object containing the initial data values.
+   */
   data() {
-    return { titule: "Listagem de usuários" };
+    return {
+      warning: null,
+      success: null,
+      customers: [],
+      titule: "Listagem de usuários",
+    };
+  },
+  methods: {
+    
+    /**
+     * Deletes a customer from the API.
+     * @param {number} id - The ID of the customer to be deleted.
+     */
+    deleteCustomer(id) {
+      fetch("http://localhost/api/v1/customer/" + id, {
+        method: "DELETE",
+        headers: {
+          Authorization: "Bearer " + window.localStorage.token,
+        },
+      }).then((response) => {
+        if (response.ok) {
+          console.log("Usuário deletado com sucesso");
+          setTimeout(() => {
+            location.reload();
+          }, 800);
+          this.success = "Usuário deletado com sucesso";
+        } else {
+          console.error("Erro ao excluir usuario:", response.status);
+          this.warning = "Erro ao excluir usuario:" + response.status;
+        }
+      })
+        .catch((error) => {
+          console.error("Erro ao excluir usuario:", error);
+        })
+    },
   },
   components: {
     BasicApp,

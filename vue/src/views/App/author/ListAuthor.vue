@@ -5,12 +5,11 @@
       <div class="row">
         <Sidebar />
         <main class="col-md-9 ms-sm col-lg-6 px-md-5">
-         <div class="pt-3 pb-2 mb-3 text-center">
+          <div class="pt-3 pb-2 mb-3 text-center">
             <div class="py-5 ml-2 text-center">
               <h2>{{ titule }}</h2>
             </div>
           </div>
-          <!-- {{-- {{status}} --}} -->
           <div class="table-responsive">
             <table class="table table-striped table-ls">
               <thead>
@@ -20,20 +19,13 @@
                   <th scope="col" class="text-danger text-center">Deletar</th>
                 </tr>
               </thead>
-              <form action="" method="get">
+              <form v-show="showForm" @submit.prevent="createAuthor">
                 <tbody>
-                  <!-- @foreach ($authors as $author) -->
-                  <tr>
-                    <input
-                      type="hidden"
-                      name="id"
-                      value="{{ $author->id }}"
-                      id="id"
-                    />
-                    <td name="name_authors">name</td>
+                  <tr v-for="author in authors" :key="author.id">
+                    <td>{{ author.author_name }}</td>
 
                     <td class="text-center">
-                      <a to="authorEdit"
+                      <a :to="'authorEdit/' + author.id"
                         ><svg
                           xmlns="http://www.w3.org/2000/svg"
                           width="18"
@@ -53,11 +45,8 @@
                       </a>
                     </td>
                     <td class="text-center">
-                      <form id="id" action="authorDestroy" method="post">
-                        <a
-                          href="#"
-                          onclick="document.getElementById('id').submit()"
-                        >
+                      <form id="id" action="" method="post">
+                        <a href="#" @click="deleteBook(book.id)">
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             width="18"
@@ -77,10 +66,11 @@
                       </form>
                     </td>
                   </tr>
-                  <!-- @endforeach -->
                 </tbody>
               </form>
             </table>
+            <div class="alert alert-danger" v-if="warning">{{ warning }}</div>
+            <div class="alert alert-success" v-if="success">{{ success }}</div>
           </div>
         </main>
       </div>
@@ -93,29 +83,81 @@
 import Sidebar from "@/components/app/_partials/SidebarApp.vue";
 import Footer from "@/components/app/_partials/FooterApp.vue";
 import BasicApp from "@/components/app/BasicApp.vue";
+import axios from "axios";
+
 export default {
-  setup() {},
-  data() {
-    return { titule: "Listagem de autores"}
+  name: "ListAuthor",
+  mounted() {
+    // Check if the user is logged in
+    const isLogged = localStorage.isLogged;
+    if (isLogged != "true") {
+      // Redirect to the login route if not logged in
+      this.$router.push("/login");
+    }
   },
+  created() {
+    // Fetch the list of authors from the API
+    axios
+      .get("http://localhost/api/v1/author", {
+        headers: {
+          Authorization: "Bearer " + window.localStorage.token,
+        },
+      })
+      .then((response) => {
+        // Save the list of authors in the component's data
+        this.authors = response.data;
+  
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  },
+  data() {
+    return {
+      // Define the component's data properties
+      warning: null,
+      success: null,
+      authors: [],
+      titule: "Listagem de autores",
+    };
+  },
+  methods: {
+
+    /**
+     * Delete a book by its ID
+     * @param {number} id - The ID of the book to delete
+     */
+    deleteBook(id) {
+      // Send a DELETE request to the API to delete the author
+      fetch("http://localhost/api/v1/author/" + id, {
+        method: "DELETE",
+        headers: {
+          Authorization: "Bearer " + window.localStorage.token,
+        },
+      })
+        .then((response) => {
+          if (response.ok) {
+            // Log success message and reload the page
+            console.log("Autor deletado com sucesso");
+            setTimeout(() => {
+              location.reload();
+            }, 800);
+            this.success = "Autor deletado com sucesso";
+          } else {
+            console.error("Erro ao excluir Author:", response.status);
+          }
+        })
+        .catch((error) => {
+          console.error("Erro ao excluir autor:", error);
+        });
+    },
+  },
+  
   components: {
     BasicApp,
     Sidebar,
     Footer,
   },
 };
-
-new Vue({
-  el: '#app',
-  data () {
-    return {
-      info: null
-    }
-  },
-  mounted () {
-    axios
-      .get('https://localhost:8000/api/v1/authors')
-      .then(response => (this.info = response))
-  }
-})
 </script>
