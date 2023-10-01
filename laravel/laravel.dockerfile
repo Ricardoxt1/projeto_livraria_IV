@@ -34,3 +34,4 @@ COPY build/entrypoint.sh /usr/local/bin/docker-php-entrypoint
 # Expose port 9000 and start php-fpm server (for FastCGI Process Manager)
 EXPOSE 9000
 CMD ["php-fpm"]
+

@@ -104,4 +104,18 @@ export default {
     Footer,
   },
 };
+
+new Vue({
+  el: '#app',
+  data () {
+    return {
+      info: null
+    }
+  },
+  mounted () {
+    axios
+      .get('https://localhost:8000/api/v1/authors')
+      .then(response => (this.info = response))
+  }
+})
 </script>

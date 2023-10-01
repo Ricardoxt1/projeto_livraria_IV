@@ -1,4 +1,4 @@
-version: "3.7"
+version: "2.0"
 
 services:
   # laravel       
@@ -18,10 +18,6 @@ services:
     volumes:
       - ./:/var/www/html/
       - ./php/laravel.ini:/usr/local/etc/php/conf.d/laravel.ini
-    ports:
-      - "8000:80"
-    expose:
-      - "9000"
     networks:
       - library-3
 
