@@ -118,12 +118,17 @@ import axios from "axios";
 
 export default {
   name: "FormCreateEdit",
-  data(){
+  data() {
     return {
       warning: null,
       sucess: null,
-    }
+    };
   },
+
+  /**
+   * get the form data
+   *
+   */
   created() {
     axios
       .get("http://localhost/api/v1/customer", {
@@ -169,6 +174,9 @@ export default {
   },
 
   methods: {
+    /**
+     * Creates or updates an rental
+     */
     createOrUpdateRental() {
       if (this.id) {
         this.updateRental();
@@ -177,6 +185,9 @@ export default {
       }
     },
 
+    /**
+     * Create a new rental
+     */
     createRental() {
       const rentalCustomer = this.rental.customer_id;
       const rentalBook = this.rental.book_id;
@@ -210,6 +221,9 @@ export default {
         });
     },
 
+    /**
+     * update the rental
+     */
     updateRental() {
       const rentalCustomer = this.rental.customer_id;
       const rentalBook = this.rental.book_id;

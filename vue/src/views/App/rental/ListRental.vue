@@ -112,6 +112,9 @@ created() {
     };
   },
   methods: {
+    /**
+     * delete a rental
+     */
     deleteRental(id) {
       fetch("http://localhost/api/v1/rental/" + id, {
         method: "DELETE",
@@ -134,7 +137,9 @@ created() {
           console.error("Erro ao excluir aluguel:", error);
         });
     },
-
+    /**
+     * Fetches data from the API rental
+     */
     fetchRentals() {
       axios
         .get("http://localhost/api/v1/rental", {

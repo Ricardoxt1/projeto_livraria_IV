@@ -50,9 +50,6 @@ export default {
       title: "Cadastro de livros",
     };
   },
-  setup() {
-    return {};
-  },
 };
 </script>
 

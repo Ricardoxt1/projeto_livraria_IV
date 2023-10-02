@@ -151,12 +151,22 @@ import axios from "axios";
 
 export default {
   name: "FormCreateEdit",
-  data(){
+  /**
+   * Returns the initial data object for the component.
+   * The data object contains two properties: warning and success.
+   */
+  data() {
     return {
+      // Holds the warning message
       warning: null,
-      sucess: null,
-    }
+      // Holds the success message
+      success: null,
+    };
   },
+
+  /**
+   * Initializes the component when it is created.
+   */
   created() {
     axios
       .get("http://localhost/api/v1/author", {
@@ -191,6 +201,7 @@ export default {
         console.log(response.data);
       });
   },
+
   mounted() {
     const isLogged = localStorage.isLogged;
     if (isLogged != "true") {
@@ -208,6 +219,12 @@ export default {
       }
     },
 
+    /**
+     * Creates a new book by making a POST request to the API.
+     *
+     * @param {object} book - The book object containing the following properties:
+     * @return {void}
+     */
     createBook() {
       const bookTitule = this.book.titule;
       const bookPage = this.book.page;
@@ -244,6 +261,12 @@ export default {
         });
     },
 
+    /**
+     * Updates a book in the database.
+     *
+     * @param {object} book - The book to update
+     * @return {void} 
+     */
     updateBook() {
       const bookTitule = this.book.titule;
       const bookPage = this.book.page;

@@ -50,9 +50,6 @@ export default {
       title: "Editar livro",
     };
   },
-  setup() {
-    return {};
-  },
 };
 </script>
 

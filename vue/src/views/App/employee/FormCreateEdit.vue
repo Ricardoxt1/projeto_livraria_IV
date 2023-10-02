@@ -116,12 +116,16 @@ import axios from "axios";
 
 export default {
   name: "FormCreateEdit",
-  data(){
+  data() {
     return {
       warning: null,
       sucess: null,
-    }
+    };
   },
+
+  /**
+   * Fetches data from the API and assigns it to the "library" variable.
+   */
   created() {
     axios
       .get("http://localhost/api/v1/library", {
@@ -148,6 +152,9 @@ export default {
   },
 
   methods: {
+    /**
+     * Creates or updates an employee.
+     */
     createOrUpdateEmployee() {
       if (this.id) {
         this.updateEmployee();
@@ -155,6 +162,9 @@ export default {
         this.createEmployee();
       }
     },
+    /**
+     * Created an employee.
+     */
     createEmployee() {
       const employeeName = this.$refs.nameInput.value;
       const employeePis = this.$refs.pisInput.value;
@@ -186,7 +196,9 @@ export default {
           this.success = "Funcionário inserido com sucesso";
         });
     },
-
+    /**
+     * Updates an employee.
+     */
     updateEmployee() {
       const employeeName = this.$refs.nameInput.value;
       const employeePis = this.$refs.pisInput.value;

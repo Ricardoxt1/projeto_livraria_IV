@@ -40,7 +40,6 @@ export default {
   data() {
     return { titule: "Cadastro de autores" };
   },
-  setup() {},
   components: {
     BasicRegister,
     Sidebar,

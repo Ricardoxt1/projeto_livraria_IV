@@ -113,12 +113,16 @@ import axios from "axios";
 
 export default {
   name: "FormCreateEdit",
-  data(){
+  data() {
     return {
       warning: null,
       sucess: null,
-    }
+    };
   },
+  
+  /**
+   * Mounts the component and performs necessary actions based on the user's login status.
+   */
   mounted() {
     const isLogged = localStorage.isLogged;
     if (isLogged != "true") {
@@ -127,7 +131,12 @@ export default {
       this.fetchAuthor();
     }
   },
+  
   methods: {
+    
+    /**
+     * Create or update a customer.
+     */
     createOrUpdateCustomer() {
       if (this.id) {
         this.updateCustomer();
@@ -136,6 +145,9 @@ export default {
       }
     },
 
+    /**
+     * Creates a book using the customer information provided.
+     */
     createBook() {
       const customerName = this.customer.name;
       const customerPhone = this.customer.phone_number;
@@ -172,9 +184,11 @@ export default {
         });
     },
 
+    /**
+     * Updates the book information.
+     */
     updateBook() {
       const customerName = this.customer.name;
-      const customerPhone = this.customer.phone_number;
       const customerEmail = this.customer.email;
       const customerCpf = this.customer.cpf;
       const customerAddress = this.customer.address;

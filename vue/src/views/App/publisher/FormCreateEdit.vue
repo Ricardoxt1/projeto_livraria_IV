@@ -46,6 +46,7 @@ export default {
       sucess: null,
     }
   },
+  
   mounted() {
     const isLogged = localStorage.isLogged;
     if (isLogged != "true") {
@@ -56,6 +57,9 @@ export default {
   },
 
   methods: {
+    /**
+     * Determines whether to create or update the publisher.
+     */
     createOrUpdatePublisher() {
       if (this.id) {
         this.updatePublisher();
@@ -63,6 +67,9 @@ export default {
         this.createPublisher();
       }
     },
+    /**
+     * Creates a publisher
+     */
     createPublisher() {
       const publisherName = this.publisher.name;
       axios
@@ -86,6 +93,9 @@ export default {
         });
     },
 
+    /**
+     * Update a existing publisher
+     */
     updatePublisher() {
       const publisherName = this.publisher.name;
       axios
@@ -109,6 +119,10 @@ export default {
           this.$router.push("/publisher");
         });
     },
+
+    /**
+     * Get the publisher
+     */
     submitForm() {
       const form = document.getElementById("publisherForm");
 
