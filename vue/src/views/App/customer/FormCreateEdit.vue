@@ -194,7 +194,6 @@ export default {
       const customerAddress = this.customer.address;
       const customer = {
         name: customerName,
-        phone_number: customerPhone,
         email: customerEmail,
         cpf: customerCpf,
         address: customerAddress,
