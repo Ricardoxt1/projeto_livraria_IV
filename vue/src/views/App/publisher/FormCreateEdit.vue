@@ -5,7 +5,8 @@
     id="publisherForm"
     novalidate=""
     action=""
-    @submit.prevent="submitForm()"
+    @submit="submitForm"
+    @submit.prevent="createOrUpdatePublisher"
   >
     <div class="col-md-6">
       <label for="validationCustom01" class="form-label">Nome da editora</label>
@@ -13,7 +14,8 @@
         type="text"
         class="form-control"
         id="validationCustom01"
-        value=""
+        ref="nameInput"
+        v-model="publisher.name"
         placeholder="digite nome da editora"
         required=""
       />
@@ -24,16 +26,89 @@
     </div>
 
     <div class="col-12">
-      <button class="btn btn-primary mt-5" type="submit">Adicionar</button>
+      <button class="btn btn-primary mt-5" type="submit">
+        {{ id ? "Atualizar" : "Adicionar" }}
+      </button>
     </div>
+    <div class="alert alert-danger" v-if="warning">{{ warning }}</div>
+    <div class="alert alert-success" v-if="success">{{ success }}</div>
   </form>
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   name: "FormCreateEdit",
-  setup() {},
+  data(){
+    return {
+      warning: null,
+      sucess: null,
+    }
+  },
+  mounted() {
+    const isLogged = localStorage.isLogged;
+    if (isLogged != "true") {
+      this.$router.push("/login");
+    } else {
+      this.fetchAuthor();
+    }
+  },
+
   methods: {
+    createOrUpdatePublisher() {
+      if (this.id) {
+        this.updatePublisher();
+      } else {
+        this.createPublisher();
+      }
+    },
+    createPublisher() {
+      const publisherName = this.publisher.name;
+      axios
+        .post(
+          "http://localhost/api/v1/publisher",
+          {
+            name: publisherName,
+          },
+          {
+            headers: {
+              Authorization: "Bearer " + window.localStorage.token,
+            },
+          }
+        )
+        .then(() => {
+          console.log("Editora cadastrada com sucesso!");
+          setTimeout(() => {
+            location.reload();
+          }, 800);
+          this.success = "Editora cadastrada com sucesso!";
+        });
+    },
+
+    updatePublisher() {
+      const publisherName = this.publisher.name;
+      axios
+        .put(
+          "http://localhost/api/v1/publisher/" + this.id,
+          {
+            name: publisherName,
+          },
+          {
+            headers: {
+              Authorization: "Bearer " + window.localStorage.token,
+            },
+          }
+        )
+        .then(() => {
+          console.log("Editora atualizada com sucesso!");
+          this.$router.push("/publisher");
+        })
+        .catch((error) => {
+          console.log(error);
+          this.$router.push("/publisher");
+        });
+    },
     submitForm() {
       const form = document.getElementById("publisherForm");
 

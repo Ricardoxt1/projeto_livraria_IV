@@ -20,7 +20,10 @@
                         />
                         <h2 class="mt-1 mb-5 pb-1">Biblioteca Pedbot</h2>
                       </div>
-                      <form class="needs-validatio was-validated" method="post">
+                      <form
+                        class="needs-validatio was-validated"
+                        @submit.prevent="submitForm"
+                      >
                         <div class="form-outline my-4">
                           <label
                             class="form-label is-invalid mt-3"
@@ -30,7 +33,7 @@
                           <input
                             type="email"
                             id="form2Example11"
-                            value=""
+                            v-model="form.email"
                             name="email"
                             class="form-control"
                             placeholder="digite nome do usuario"
@@ -52,7 +55,7 @@
                             <input
                               type="password"
                               id="form2Example22"
-                              value=""
+                              v-model="form.password"
                               name="password"
                               class="form-control"
                               aria-describedby="toggleButton"
@@ -117,6 +120,8 @@
             </div>
           </div>
         </div>
+        <div class="alert alert-danger" v-if="warning">{{ warning }}</div>
+        <div class="alert alert-success" v-if="success">{{ success }}</div>
       </div>
     </section>
     <FooterClient />
@@ -124,19 +129,42 @@
 </template>
 
 
-<script setup>
+<script>
 import FooterClient from "../../components/site/_partials/FooterSite.vue";
 import BasicClient from "../../components/client/BasicClient.vue";
-</script>
+import axios from "axios";
 
-<script>
 export default {
   name: "LoginClient",
   components: {
     FooterClient,
     BasicClient,
   },
-  data: () => ({}),
+  data(){
+    return {
+      warning: null,
+      sucess: null,
+    }
+  },
+  submitForm(){
+    axios.post('http://localhost/api/login', {
+      email: this.form.email,
+      password: this.form.password
+    }, {
+      headers: {
+        Authorization: "Bearer " + window.localStorage.token,
+      }
+    }
+    ).then((response) => {
+      console.log(response.data);
+      this.success = ("Login realizado com sucesso!");
+      setTimeout(() => {
+        this.$router.push('/menu');
+      })
+    }).catch(() => {
+      this.warning = ("Email ou senha incorretos!");
+    })
+  },
   /**
    * Sets up the toggle button functionality for password visibility.
    *

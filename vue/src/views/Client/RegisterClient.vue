@@ -38,7 +38,7 @@
                     <form
                       class="row needs-validation d-flex justify-content-center"
                       id="registerForm"
-                      method="post"
+                      @submit.prevent="submitForm"
                     >
                       <div class="form-outline col-7">
                         <label class="form-label mt-3" for="form2Example11"
@@ -47,6 +47,8 @@
                         <input
                           type="text"
                           id="form2Example11"
+                          ref="username"
+                          v-model="form.username"
                           class="form-control"
                           name="username"
                           placeholder="digite nome do usuario"
@@ -66,6 +68,8 @@
                         <input
                           type="email"
                           id="validationCustom01"
+                          ref="email"
+                          v-model="form.email"
                           class="form-control"
                           name="email"
                           placeholder="digite seu email"
@@ -119,6 +123,12 @@
                 </div>
               </div>
             </div>
+            <div>
+              <div class="alert alert-danger" v-if="warning">{{ warning }}</div>
+              <div class="alert alert-success" v-if="success">
+                {{ success }}
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -126,19 +136,43 @@
     <FooterClient />
   </div>
 </template>
-
-
-<script setup>
-import BasicClient from "../../components/client/BasicClient.vue";
-import FooterClient from "../../components/site/_partials/FooterSite.vue";
-</script>
   
 <script>
+import BasicClient from "../../components/client/BasicClient.vue";
+import FooterClient from "../../components/site/_partials/FooterSite.vue";
+import axios from "axios";
+
 export default {
   name: "RegisterClient",
   components: {
     BasicClient,
     FooterClient,
+  },
+  data() {
+    return {
+      warning: null,
+      sucess: null,
+    };
+  },
+  submitForm(){
+    axios.post('http://localhost:8000/api/register',{
+      username: this.form.username,
+      email: this.form.email,
+    },
+    {
+      headers: {
+        Authorization: "Bearer " + window.localStorage.token,
+      }
+    }
+    ).then((response) => {
+      console.log(response.data);
+      this.success = ("Conta criada com sucesso!");
+      setTimeout(() => {
+        this.$router.push('/menu');
+      })
+    }).catch(() => {
+      this.warning = ("Email ou nome de usuario ja existe!");
+    });
   },
   /**
    * Sets up the functionality for the component.

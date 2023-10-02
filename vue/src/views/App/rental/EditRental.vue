@@ -49,7 +49,7 @@ export default {
   },
   data: () => {
     return {
-      title: "Cadatrado de aluguel",
+      title: "Editar aluguel",
     };
   },
 };

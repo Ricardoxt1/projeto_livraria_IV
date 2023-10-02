@@ -5,7 +5,8 @@
     id="employeeForm"
     novalidate=""
     action=""
-    @submit.prevent="submitForm"
+    @submit="submitForm"
+    @submit.prevent="createOrUpdateEmployee"
   >
     <div class="row g-3">
       <div class="col-sm-7">
@@ -13,9 +14,10 @@
         <input
           type="text"
           class="form-control"
-          value=""
           name="name"
           id="validationCustom01"
+          ref="nameInput"
+          v-model="employee.name"
           placeholder="Nome Completo"
           required=""
         />
@@ -31,9 +33,10 @@
           type="number"
           class="form-control"
           maxlength="11"
-          value=""
           name="pis"
           id="validationCustom02"
+          ref="pisInput"
+          v-model="employee.pis"
           placeholder="12345678910"
           required=""
         />
@@ -45,9 +48,10 @@
         <input
           type="text"
           class="form-control"
-          value=""
           name="office"
           id="validationCustom03"
+          ref="officeInput"
+          v-model="employee.office"
           placeholder="Vendedor"
           required=""
         />
@@ -62,9 +66,10 @@
         <input
           type="text"
           class="form-control"
-          value=""
           name="departament"
           id="validationCustom04"
+          ref="departamentInput"
+          v-model="employee.departament"
           placeholder="Vendas"
           required=""
         />
@@ -78,34 +83,143 @@
         <label for="validationCustom05" class="form-label">Livraria</label
         ><br />
         <select
+          v-for="library in libraries"
+          :key="library.id"
           class="form-select"
           id="validationCustom05"
+          ref="libraryInput"
+          v-model="employee.library_id"
           name="library_id"
           aria-label="validationServer04Feedback"
           required=""
         >
           <option selected="" disabled="" value="">Escolha...</option>
-          <!-- @foreach ($libraries as $library) -->
-          <option value="{{ $library->id }}">library->name</option>
-          <!-- @endforeach -->
+          <option value="{{ library.id }}">{{ library.name }}</option>
         </select>
         <div class="valid-feedback">Livraria selecionada!</div>
         <div class="invalid-feedback">Necessário selecionar a livraria.</div>
       </div>
     </div>
 
-    <button class="w-20 my-4 btn btn-primary btn-ls" type="submit">
-      Adicionar
-    </button>
+    <div class="col-12">
+      <button class="btn btn-primary mt-5" type="submit">
+        {{ id ? "Atualizar" : "Adicionar" }}
+      </button>
+    </div>
+    <div class="alert alert-danger" v-if="warning">{{ warning }}</div>
+    <div class="alert alert-success" v-if="success">{{ success }}</div>
   </form>
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   name: "FormCreateEdit",
-  setup() {},
+  data(){
+    return {
+      warning: null,
+      sucess: null,
+    }
+  },
+  created() {
+    axios
+      .get("http://localhost/api/v1/library", {
+        headers: {
+          Authorization: "Bearer " + window.localStorage.token,
+        },
+      })
+      .then((response) => {
+        this.library = response.data;
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  },
+
+  mounted() {
+    const isLogged = localStorage.isLogged;
+    if (isLogged != "true") {
+      this.$router.push("/login");
+    } else {
+      this.fetchAuthor();
+    }
+  },
+
   methods: {
-    
+    createOrUpdateEmployee() {
+      if (this.id) {
+        this.updateEmployee();
+      } else {
+        this.createEmployee();
+      }
+    },
+    createEmployee() {
+      const employeeName = this.$refs.nameInput.value;
+      const employeePis = this.$refs.pisInput.value;
+      const employeeOffice = this.$refs.officeInput.value;
+      const employeeDepartament = this.$refs.departamentInput.value;
+      const employeeLibrary = this.$refs.libraryInput.value;
+
+      axios
+        .post(
+          "http://localhost/api/v1/employee",
+          {
+            name: employeeName,
+            pis: employeePis,
+            office: employeeOffice,
+            departament: employeeDepartament,
+            library_id: employeeLibrary,
+          },
+          {
+            headers: {
+              Authorization: "Bearer " + window.localStorage.token,
+            },
+          }
+        )
+        .then(() => {
+          console.log("Functionário inserido com sucesso!");
+          setTimeout(() => {
+            location.reload();
+          }, 800);
+          this.success = "Funcionário inserido com sucesso";
+        });
+    },
+
+    updateEmployee() {
+      const employeeName = this.$refs.nameInput.value;
+      const employeePis = this.$refs.pisInput.value;
+      const employeeOffice = this.$refs.officeInput.value;
+      const employeeDepartament = this.$refs.departamentInput.value;
+      const employeeLibrary = this.$refs.libraryInput.value;
+
+      axios
+        .put(
+          "http://localhost/api/v1/employee/" + this.id,
+          {
+            name: employeeName,
+            pis: employeePis,
+            office: employeeOffice,
+            departament: employeeDepartament,
+            library_id: employeeLibrary,
+          },
+          {
+            headers: {
+              Authorization: "Bearer " + window.localStorage.token,
+            },
+          }
+        )
+        .then(() => {
+          console.log("Funcionário atualizado com sucesso!");
+          this.$router.push("/employee");
+        })
+        .catch((error) => {
+          console.log(error);
+          this.$router.push("/employee");
+        });
+    },
+
     /**
      * Submits the form.
      */

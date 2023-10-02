@@ -64,7 +64,7 @@ const routes = [
     {
         path: '/createAuthor',
         name: 'CreateAuthor',
-    
+
         component: () => import(/* webpackChunkName: "createAuthor" */ '../views/App/author/CreateAuthor.vue'),
     },
     {
@@ -96,7 +96,48 @@ const routes = [
         name: 'CreateRental',
 
         component: () => import(/* webpackChunkName: "createRental" */ '../views/App/rental/CreateRental.vue')
-    }
+    },
+    {
+        path: '/editAuthor',
+        name: 'EditAuthor',
+
+        component: () => import(/* webpackChunkName: "editAuthor" */ '../views/App/author/EditAuthor.vue')
+    },
+    {
+        path: '/editBook',
+        name: 'EditBook',
+
+        component: () => import(/* webpackChunkName: "editBook" */ '../views/App/book/EditBook.vue')
+    },
+
+    {
+        path: '/editCustomer',
+        name: 'EditCustomer',
+
+        component: () => import(/* webpackChunkName: "editCustomer" */ '../views/App/customer/EditCustomer.vue')
+    },
+    {
+        path: '/editEmployee',
+        name: 'EditEmployee',
+
+        component: () => import(/* webpackChunkName: "editEmployee" */ '../views/App/employee/EditEmployee.vue')
+    },
+    {
+        path: '/editPublisher',
+        name: 'EditPublisher',
+
+        component: () => import(/* webpackChunkName: "editPublisher" */ '../views/App/publisher/EditPublisher.vue')
+    },
+    {
+        path: '/editRental',
+        name: 'EditRental',
+
+        component: () => import(/* webpackChunkName: "editRental" */ '../views/App/rental/EditRental.vue')
+    },
+
+
+
+
 
 ]
 

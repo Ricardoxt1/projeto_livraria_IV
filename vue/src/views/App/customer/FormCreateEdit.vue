@@ -4,8 +4,9 @@
     method="post"
     id="customerForm"
     action=""
-    @submit.prevent="submitForm"
     novalidate=""
+    @submit="submitForm"
+    @submit.prevent="createOrUpdateCustomer"
   >
     <div class="row g-3">
       <div class="col-sm-6">
@@ -13,9 +14,10 @@
         <input
           type="text"
           class="form-control"
-          value=""
           name="name"
           id="validationCustom01"
+          ref="nameInput"
+          v-model="customer.name"
           placeholder="fulano da silva "
           required=""
         />
@@ -28,9 +30,10 @@
         <input
           type="number"
           class="form-control"
-          value=""
           name="phone_number"
           id="validationCustom02"
+          ref="phoneInput"
+          v-model="customer.phone_number"
           placeholder="00 00000000"
           maxlength="11"
           required=""
@@ -46,9 +49,10 @@
         <input
           type="email"
           class="form-control"
-          value=""
           name="email"
-          valueid="validationCustom03"
+          id="validationCustom03"
+          ref="emailInput"
+          v-model="customer.email"
           placeholder="you@example.com"
           required=""
         />
@@ -63,9 +67,10 @@
         <input
           type="number"
           class="form-control"
-          value=""
           name="cpf"
           id="validationCustom04"
+          ref="cpfInput"
+          v-model="customer.cpf"
           placeholder="12345678909 (sem ponto e hífen)"
           maxlength="14"
           required=""
@@ -79,9 +84,10 @@
         <input
           type="text"
           class="form-control"
-          value=""
           name="address"
           id="validationCustom05"
+          ref="addressInput"
+          v-model="customer.address"
           placeholder="Main ST 1234"
           required=""
         />
@@ -92,17 +98,108 @@
       </div>
     </div>
 
-    <button class="w-20 my-4 btn btn-primary btn-ls" type="submit">
-      Adicionar
-    </button>
+    <div class="col-12">
+      <button class="btn btn-primary mt-5" type="submit">
+        {{ id ? "Atualizar" : "Adicionar" }}
+      </button>
+    </div>
+    <div class="alert alert-danger" v-if="warning">{{ warning }}</div>
+    <div class="alert alert-success" v-if="success">{{ success }}</div>
   </form>
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   name: "FormCreateEdit",
-  setup() {},
+  data(){
+    return {
+      warning: null,
+      sucess: null,
+    }
+  },
+  mounted() {
+    const isLogged = localStorage.isLogged;
+    if (isLogged != "true") {
+      this.$router.push("/login");
+    } else {
+      this.fetchAuthor();
+    }
+  },
   methods: {
+    createOrUpdateCustomer() {
+      if (this.id) {
+        this.updateCustomer();
+      } else {
+        this.createCustomer();
+      }
+    },
+
+    createBook() {
+      const customerName = this.customer.name;
+      const customerPhone = this.customer.phone_number;
+      const customerEmail = this.customer.email;
+      const customerCpf = this.customer.cpf;
+      const customerAddress = this.customer.address;
+      const customer = {
+        name: customerName,
+        phone_number: customerPhone,
+        email: customerEmail,
+        cpf: customerCpf,
+        address: customerAddress,
+      };
+      axios
+        .post("http://localhost/api/v1/customer", customer, {
+          headers: {
+            Authorization: "Bearer " + window.localStorage.token,
+          },
+        })
+        .then((response) => {
+          if (response.ok) {
+            console.log("Usuário adicionado com sucesso");
+            setTimeout(() => {
+              location.reload();
+            }, 800);
+            this.success = "Usuário adicionado com sucesso";
+          } else {
+            console.error("Erro ao adicionar usuario:", response.status);
+            this.warning = "Erro ao adicionar usuario:" + response.status;
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+
+    updateBook() {
+      const customerName = this.customer.name;
+      const customerPhone = this.customer.phone_number;
+      const customerEmail = this.customer.email;
+      const customerCpf = this.customer.cpf;
+      const customerAddress = this.customer.address;
+      const customer = {
+        name: customerName,
+        phone_number: customerPhone,
+        email: customerEmail,
+        cpf: customerCpf,
+        address: customerAddress,
+      };
+      axios
+        .put("http://localhost/api/v1/customer/" + this.id, customer, {
+          headers: {
+            Authorization: "Bearer " + window.localStorage.token,
+          },
+        })
+        .then(() => {
+          console.log("Usuário atualizado com sucesso");
+          this.$router.push("/customer");
+        })
+        .catch((error) => {
+          console.log(error);
+          this.$router.push("/customer");
+        });
+    },
 
     /**
      * Submits the form and performs validation.

@@ -12,14 +12,12 @@
               <div class="container">
                 <main>
                   <div class="py-5 text-center">
-                    <div>
-                      <h2>{{ title }}</h2>
-                    </div>
+                    <h2>{{ title }}</h2>
                   </div>
 
-                  <div class="row g-5 px-5 mx-3 py-5">
+                  <div class="row g-5 px-5 mx-3 py-4">
                     <div class="col-md-7 col-lg-12">
-                      <h5 class="mb-4">Registro sobre o aluguel</h5>
+                      <h5 class="mb-3">Registro de dados</h5>
                       <Form />
                     </div>
                   </div>
@@ -38,7 +36,7 @@
 import BasicRegister from "@/components/app/BasicRegister.vue";
 import Sidebar from "@/components/app/_partials/SidebarRegister.vue";
 import Footer from "@/components/app/_partials/FooterApp.vue";
-import Form from "@/views/App/rental/FormCreateEdit.vue";
+import Form from "@/views/App/employee/FormCreateEdit.vue";
 export default {
   name: "FormCreateEdit",
   components: {
@@ -49,7 +47,7 @@ export default {
   },
   data: () => {
     return {
-      title: "Cadatrado de aluguel",
+      title: "Editar funcionário(a)",
     };
   },
 };
