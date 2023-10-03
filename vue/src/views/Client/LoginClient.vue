@@ -140,30 +140,37 @@ export default {
     FooterClient,
     BasicClient,
   },
-  data(){
+  data() {
     return {
       warning: null,
       sucess: null,
-    }
+      form: [],
+    };
   },
-  submitForm(){
-    axios.post('http://localhost/api/login', {
-      email: this.form.email,
-      password: this.form.password
-    }, {
-      headers: {
-        Authorization: "Bearer " + window.localStorage.token,
-      }
-    }
-    ).then((response) => {
-      console.log(response.data);
-      this.success = ("Login realizado com sucesso!");
-      setTimeout(() => {
-        this.$router.push('/menu');
+  submitForm() {
+    axios
+      .post(
+        API_URL + "login",
+        {
+          email: this.form.email,
+          password: this.form.password,
+        },
+        {
+          headers: {
+            Authorization: "Bearer " + window.localStorage.token,
+          },
+        }
+      )
+      .then((response) => {
+        console.log(response.data);
+        this.success = "Login realizado com sucesso!";
+        setTimeout(() => {
+          this.$router.push("/menu");
+        });
       })
-    }).catch(() => {
-      this.warning = ("Email ou senha incorretos!");
-    })
+      .catch(() => {
+        this.warning = "Email ou senha incorretos!";
+      });
   },
   /**
    * Sets up the toggle button functionality for password visibility.

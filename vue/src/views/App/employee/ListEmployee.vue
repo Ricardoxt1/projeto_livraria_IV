@@ -28,7 +28,7 @@
                     <td name="pis">{{ employee.pis }}</td>
                     <td name="office">{{ employee.office }}</td>
                     <td name="department">{{ employee.department }}></td>
-                    <td v-for="library in employee.libraries" :key="library.id">
+                    <td v-for="library in employee.library" :key="library.id">
                       {{ library.name }}
                     </td>
                     <td class="text-center">
@@ -113,6 +113,7 @@ export default {
       warning: null,
       success: null,
       employees: [],
+      library: [],
       titule: "Listagem de funcionários",
     };
   },
@@ -122,7 +123,7 @@ export default {
      * @param {number} id - The ID of the employee to delete
      */
     deleteEmployee(id) {
-      fetch("http://localhost/api/v1/employee/" + id, {
+      fetch(API_URL + "employee/" + id, {
         method: "DELETE",
         headers: {
           Authorization: "Bearer " + window.localStorage.token,
@@ -149,7 +150,25 @@ export default {
      */
     fetchEmployees() {
       axios
-        .get("http://localhost/api/v1/employee", {
+        .get(API_URL + "employee", {
+          headers: {
+            Authorization: "Bearer " + window.localStorage.token,
+          },
+        })
+        .then((response) => {
+          this.employees = response.data;
+          console.log(response.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    /**
+     * Fetch library data from the API
+     */
+    fetchLibrary() {
+      axios
+        .get(API_URL + "library", {
           headers: {
             Authorization: "Bearer " + window.localStorage.token,
           },

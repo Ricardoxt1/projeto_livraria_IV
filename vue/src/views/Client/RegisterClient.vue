@@ -48,7 +48,7 @@
                           type="text"
                           id="form2Example11"
                           ref="username"
-                          v-model="form.username"
+                          v-model="register.username"
                           class="form-control"
                           name="username"
                           placeholder="digite nome do usuario"
@@ -69,7 +69,7 @@
                           type="email"
                           id="validationCustom01"
                           ref="email"
-                          v-model="form.email"
+                          v-model="register.email"
                           class="form-control"
                           name="email"
                           placeholder="digite seu email"
@@ -89,6 +89,8 @@
                             type="password"
                             class="form-control"
                             id="validationCustom02"
+                            ref="password"
+                            v-model="register.password"
                             name="password"
                             aria-describedby="toggleButton"
                             placeholder="Digite sua senha"
@@ -152,27 +154,34 @@ export default {
     return {
       warning: null,
       sucess: null,
+      register: [],
     };
   },
-  submitForm(){
-    axios.post('http://localhost:8000/api/register',{
-      username: this.form.username,
-      email: this.form.email,
-    },
-    {
-      headers: {
-        Authorization: "Bearer " + window.localStorage.token,
-      }
-    }
-    ).then((response) => {
-      console.log(response.data);
-      this.success = ("Conta criada com sucesso!");
-      setTimeout(() => {
-        this.$router.push('/menu');
+  submitForm() {
+    axios
+      .post(
+        API_URL + "register",
+        {
+          username: this.register.username,
+          email: this.register.email,
+          password: this.register.password,
+        },
+        {
+          headers: {
+            Authorization: "Bearer " + window.localStorage.token,
+          },
+        }
+      )
+      .then((response) => {
+        console.log(response.data);
+        this.success = "Conta criada com sucesso!";
+        setTimeout(() => {
+          this.$router.push("/menu");
+        });
       })
-    }).catch(() => {
-      this.warning = ("Email ou nome de usuario ja existe!");
-    });
+      .catch(() => {
+        this.warning = "Email ou nome de usuario ja existe!";
+      });
   },
   /**
    * Sets up the functionality for the component.

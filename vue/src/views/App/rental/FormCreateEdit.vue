@@ -122,6 +122,10 @@ export default {
     return {
       warning: null,
       sucess: null,
+      id: this.$route.params.id,
+      customer: [],
+      book: [],
+      employee: [],
     };
   },
 
@@ -131,7 +135,7 @@ export default {
    */
   created() {
     axios
-      .get("http://localhost/api/v1/customer", {
+      .get(API_URL + "customer", {
         headers: {
           Authorization: "Bearer " + window.localStorage.token,
         },
@@ -142,7 +146,7 @@ export default {
       });
 
     axios
-      .get("http://localhost/api/v1/book", {
+      .get(API_URL + "book", {
         headers: {
           Authorization: "Bearer " + window.localStorage.token,
         },
@@ -153,7 +157,7 @@ export default {
       });
 
     axios
-      .get("http://localhost/api/v1/employee", {
+      .get(API_URL + "employee", {
         headers: {
           Authorization: "Bearer " + window.localStorage.token,
         },
@@ -189,21 +193,15 @@ export default {
      * Create a new rental
      */
     createRental() {
-      const rentalCustomer = this.rental.customer_id;
-      const rentalBook = this.rental.book_id;
-      const rentalEmployee = this.rental.employee_id;
-      const rentalDate = this.rental.rental;
-      const rentalDelivery = this.rental.delivery;
-
       axios
         .post(
-          "http://localhost/api/v1/rental",
+          API_URL + "rental",
           {
-            customer_id: rentalCustomer,
-            book_id: rentalBook,
-            employee_id: rentalEmployee,
-            rental: rentalDate,
-            delivery: rentalDelivery,
+            customer_id: this.$refs.customerInput.value,
+            book_id: this.$refs.bookInput.value,
+            employee_id: this.$refs.employeeInput.value,
+            rental: this.$refs.rentalInput.value,
+            delivery: this.$refs.deliveryInput.value,
           },
           {
             headers: {
@@ -225,21 +223,15 @@ export default {
      * update the rental
      */
     updateRental() {
-      const rentalCustomer = this.rental.customer_id;
-      const rentalBook = this.rental.book_id;
-      const rentalEmployee = this.rental.employee_id;
-      const rentalDate = this.rental.rental;
-      const rentalDelivery = this.rental.delivery;
-
       axios
         .put(
-          "http://localhost/api/v1/rental/" + this.id,
+          API_URL + "rental/" + this.id,
           {
-            customer_id: rentalCustomer,
-            book_id: rentalBook,
-            employee_id: rentalEmployee,
-            rental: rentalDate,
-            delivery: rentalDelivery,
+            customer_id: this.$refs.customerInput.value,
+            book_id: this.$refs.bookInput.value,
+            employee_id: this.$refs.employeeInput.value,
+            rental: this.$refs.rentalInput.value,
+            delivery: this.$refs.deliveryInput.value,
           },
           {
             headers: {

@@ -157,10 +157,13 @@ export default {
    */
   data() {
     return {
-      // Holds the warning message
       warning: null,
-      // Holds the success message
       success: null,
+      id: this.$route.params.id,
+      author: [],
+      library: [],
+      publisher: [],
+      book: [],
     };
   },
 
@@ -169,7 +172,7 @@ export default {
    */
   created() {
     axios
-      .get("http://localhost/api/v1/author", {
+      .get(API_URL + "author", {
         headers: {
           Authorization: "Bearer " + window.localStorage.token,
         },
@@ -180,7 +183,7 @@ export default {
       });
 
     axios
-      .get("http://localhost/api/v1/library", {
+      .get(API_URL + "library", {
         headers: {
           Authorization: "Bearer " + window.localStorage.token,
         },
@@ -191,7 +194,7 @@ export default {
       });
 
     axios
-      .get("http://localhost/api/v1/publisher", {
+      .get(API_URL + "publisher", {
         headers: {
           Authorization: "Bearer " + window.localStorage.token,
         },
@@ -226,32 +229,21 @@ export default {
      * @return {void}
      */
     createBook() {
-      const bookTitule = this.book.titule;
-      const bookPage = this.book.page;
-      const bookRealese_date = this.book.realese_date;
-      const bookAuthor_id = this.book.author_id;
-      const bookLibrary_id = this.book.library_id;
-      const bookPublisher_id = this.book.publisher_id;
-      const bookImg = this.book.image;
-
+      const book = {
+        titule: this.$refs.tituleInput.titule,
+        page: this.$refs.pageInput.page,
+        realese_date: this.$refs.realese_dateInput.realese_date,
+        author_id: this.$refs.authorInput.author_id,
+        library_id: this.$refs.libraryInput.library_id,
+        publisher_id: this.$refs.publisherInput.publisher_id,
+        image: this.$refs.imgInput.files[0],
+      };
       axios
-        .post(
-          "http://localhost/api/v1/book",
-          {
-            titule: bookTitule,
-            page: bookPage,
-            realese_date: bookRealese_date,
-            author_id: bookAuthor_id,
-            library_id: bookLibrary_id,
-            publisher_id: bookPublisher_id,
-            image: bookImg,
+        .post(API_URL + "book", book, {
+          headers: {
+            Authorization: "Bearer " + window.localStorage.token,
           },
-          {
-            headers: {
-              Authorization: "Bearer " + window.localStorage.token,
-            },
-          }
-        )
+        })
         .then(() => {
           console.log("Livro inserido com sucesso");
           setTimeout(() => {
@@ -265,35 +257,24 @@ export default {
      * Updates a book in the database.
      *
      * @param {object} book - The book to update
-     * @return {void} 
+     * @return {void}
      */
     updateBook() {
-      const bookTitule = this.book.titule;
-      const bookPage = this.book.page;
-      const bookRealese_date = this.book.realese_date;
-      const bookAuthor_id = this.book.author_id;
-      const bookLibrary_id = this.book.library_id;
-      const bookPublisher_id = this.book.publisher_id;
-      const bookImg = this.book.image;
-
+      const book = {
+        titule: this.$refs.tituleInput.titule,
+        page: this.$refs.pageInput.page,
+        realese_date: this.$refs.realese_dateInput.realese_date,
+        author_id: this.$refs.authorInput.author_id,
+        library_id: this.$refs.libraryInput.library_id,
+        publisher_id: this.$refs.publisherInput.publisher_id,
+        image: this.$refs.imgInput.files[0],
+      };
       axios
-        .put(
-          "http://localhost/api/v1/book/" + this.id,
-          {
-            titule: bookTitule,
-            page: bookPage,
-            realese_date: bookRealese_date,
-            author_id: bookAuthor_id,
-            library_id: bookLibrary_id,
-            publisher_id: bookPublisher_id,
-            image: bookImg,
+        .put(API_URL + "book/" + this.id, book, {
+          headers: {
+            Authorization: "Bearer " + window.localStorage.token,
           },
-          {
-            headers: {
-              Authorization: "Bearer " + window.localStorage.token,
-            },
-          }
-        )
+        })
         .then(() => {
           console.log("Livro atualizado com sucesso");
           this.$router.push("/book");

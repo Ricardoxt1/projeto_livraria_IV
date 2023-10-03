@@ -117,9 +117,11 @@ export default {
     return {
       warning: null,
       sucess: null,
+      id: this.$route.params.id,
+      customer: [],
     };
   },
-  
+
   /**
    * Mounts the component and performs necessary actions based on the user's login status.
    */
@@ -131,9 +133,8 @@ export default {
       this.fetchAuthor();
     }
   },
-  
+
   methods: {
-    
     /**
      * Create or update a customer.
      */
@@ -146,23 +147,18 @@ export default {
     },
 
     /**
-     * Creates a book using the customer information provided.
+     * Creates a customer using the customer information provided.
      */
-    createBook() {
-      const customerName = this.customer.name;
-      const customerPhone = this.customer.phone_number;
-      const customerEmail = this.customer.email;
-      const customerCpf = this.customer.cpf;
-      const customerAddress = this.customer.address;
+    createCustomer() {
       const customer = {
-        name: customerName,
-        phone_number: customerPhone,
-        email: customerEmail,
-        cpf: customerCpf,
-        address: customerAddress,
+        name: this.$refs.nameInput.value,
+        phone_number: this.$refs.phoneInput.value,
+        email: this.$refs.emailInput.email,
+        cpf: this.$refs.cpfInput.email,
+        address: this.$refs.addressInput.email,
       };
       axios
-        .post("http://localhost/api/v1/customer", customer, {
+        .post(API_URL + "customer", customer, {
           headers: {
             Authorization: "Bearer " + window.localStorage.token,
           },
@@ -185,21 +181,18 @@ export default {
     },
 
     /**
-     * Updates the book information.
+     * Updates the customer information.
      */
-    updateBook() {
-      const customerName = this.customer.name;
-      const customerEmail = this.customer.email;
-      const customerCpf = this.customer.cpf;
-      const customerAddress = this.customer.address;
+    updateCustomer() {
       const customer = {
-        name: customerName,
-        email: customerEmail,
-        cpf: customerCpf,
-        address: customerAddress,
+        name: this.$refs.nameInput.value,
+        phone_number: this.$refs.phoneInput.value,
+        email: this.$refs.emailInput.email,
+        cpf: this.$refs.cpfInput.email,
+        address: this.$refs.addressInput.email,
       };
       axios
-        .put("http://localhost/api/v1/customer/" + this.id, customer, {
+        .put(API_URL + "customer/" + this.id, customer, {
           headers: {
             Authorization: "Bearer " + window.localStorage.token,
           },

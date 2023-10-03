@@ -40,13 +40,15 @@ import axios from "axios";
 
 export default {
   name: "FormCreateEdit",
-  data(){
+  data() {
     return {
       warning: null,
       sucess: null,
-    }
+      publisher: [],
+      id: this.$route.params.id,
+    };
   },
-  
+
   mounted() {
     const isLogged = localStorage.isLogged;
     if (isLogged != "true") {
@@ -71,12 +73,12 @@ export default {
      * Creates a publisher
      */
     createPublisher() {
-      const publisherName = this.publisher.name;
       axios
         .post(
-          "http://localhost/api/v1/publisher",
+          API_URL + "publisher",
+          publisher,
           {
-            name: publisherName,
+            name: this.$refs.nameInput.value,
           },
           {
             headers: {
@@ -97,12 +99,11 @@ export default {
      * Update a existing publisher
      */
     updatePublisher() {
-      const publisherName = this.publisher.name;
       axios
         .put(
-          "http://localhost/api/v1/publisher/" + this.id,
+          API_URL + "publisher/" + this.id,
           {
-            name: publisherName,
+            name: this.$refs.nameInput.value,
           },
           {
             headers: {

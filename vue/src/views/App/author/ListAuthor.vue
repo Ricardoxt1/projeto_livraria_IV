@@ -22,7 +22,7 @@
               <form v-show="showForm" @submit.prevent="createAuthor">
                 <tbody>
                   <tr v-for="author in authors" :key="author.id">
-                    <td>{{ author.author_name }}</td>
+                    <td>{{ author.name }}</td>
 
                     <td class="text-center">
                       <a :to="'authorEdit/' + author.id"
@@ -98,7 +98,7 @@ export default {
   created() {
     // Fetch the list of authors from the API
     axios
-      .get("http://localhost/api/v1/author", {
+      .get(API_URL + "author", {
         headers: {
           Authorization: "Bearer " + window.localStorage.token,
         },
@@ -130,7 +130,7 @@ export default {
      */
     deleteBook(id) {
       // Send a DELETE request to the API to delete the author
-      fetch("http://localhost/api/v1/author/" + id, {
+      fetch(API_URL + "author/" + id, {
         method: "DELETE",
         headers: {
           Authorization: "Bearer " + window.localStorage.token,

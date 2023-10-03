@@ -120,6 +120,9 @@ export default {
     return {
       warning: null,
       sucess: null,
+      id: this.$route.params.id,
+      employee: [],
+      library: [],
     };
   },
 
@@ -128,7 +131,7 @@ export default {
    */
   created() {
     axios
-      .get("http://localhost/api/v1/library", {
+      .get(API_URL + "library", {
         headers: {
           Authorization: "Bearer " + window.localStorage.token,
         },
@@ -166,28 +169,20 @@ export default {
      * Created an employee.
      */
     createEmployee() {
-      const employeeName = this.$refs.nameInput.value;
-      const employeePis = this.$refs.pisInput.value;
-      const employeeOffice = this.$refs.officeInput.value;
-      const employeeDepartament = this.$refs.departamentInput.value;
-      const employeeLibrary = this.$refs.libraryInput.value;
+      const employee = {
+        name: this.$refs.nameInput.value,
+        pis: this.$refs.pisInput.value,
+        office: this.$refs.officeInput.value,
+        departament: this.$refs.departamentInput.value,
+        library_id: this.$refs.libraryInput.value,
+      };
 
       axios
-        .post(
-          "http://localhost/api/v1/employee",
-          {
-            name: employeeName,
-            pis: employeePis,
-            office: employeeOffice,
-            departament: employeeDepartament,
-            library_id: employeeLibrary,
+        .post(API_URL + "employee", employee, {
+          headers: {
+            Authorization: "Bearer " + window.localStorage.token,
           },
-          {
-            headers: {
-              Authorization: "Bearer " + window.localStorage.token,
-            },
-          }
-        )
+        })
         .then(() => {
           console.log("Functionário inserido com sucesso!");
           setTimeout(() => {
@@ -200,28 +195,20 @@ export default {
      * Updates an employee.
      */
     updateEmployee() {
-      const employeeName = this.$refs.nameInput.value;
-      const employeePis = this.$refs.pisInput.value;
-      const employeeOffice = this.$refs.officeInput.value;
-      const employeeDepartament = this.$refs.departamentInput.value;
-      const employeeLibrary = this.$refs.libraryInput.value;
+      const employee = {
+        name: this.$refs.nameInput.value,
+        pis: this.$refs.pisInput.value,
+        office: this.$refs.officeInput.value,
+        departament: this.$refs.departamentInput.value,
+        library_id: this.$refs.libraryInput.value,
+      };
 
       axios
-        .put(
-          "http://localhost/api/v1/employee/" + this.id,
-          {
-            name: employeeName,
-            pis: employeePis,
-            office: employeeOffice,
-            departament: employeeDepartament,
-            library_id: employeeLibrary,
+        .put(API_URL + "employee/" + this.id, employee, {
+          headers: {
+            Authorization: "Bearer " + window.localStorage.token,
           },
-          {
-            headers: {
-              Authorization: "Bearer " + window.localStorage.token,
-            },
-          }
-        )
+        })
         .then(() => {
           console.log("Funcionário atualizado com sucesso!");
           this.$router.push("/employee");

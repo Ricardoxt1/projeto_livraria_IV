@@ -37,108 +37,108 @@ import axios from "axios";
 
 export default {
   name: "FormCreateEdit",
- data(){
-   return {
-     warning: null, // Warning message
-     success: null, // Success message
-   }
- },
- 
- mounted() {
-   const isLogged = localStorage.isLogged;
-   if (isLogged != "true") {
-     this.$router.push("/login"); // Redirect to login page if not logged in
-   } else {
-     this.fetchAuthor(); // Fetch author data
-   }
- },
- 
- methods: {
-   /**
-    * Determines whether to create or update the author.
-    */
-   createOrUpdateAuthor() {
-     if (this.id) {
-       this.updateAuthor(); // Update author if ID exists
-     } else {
-       this.createAuthor(); // Create author if ID doesn't exist
-     }
-   },
- 
-   /**
-    * Creates a new author.
-    */
-   createAuthor() {
-     const authorName = this.author.name;
-     axios
-       .post(
-         "http://localhost/api/v1/author",
-         {
-           name: authorName,
-         },
-         {
-           headers: {
-             Authorization: "Bearer " + window.localStorage.token,
-           },
-         }
-       )
-       .then(() => {
-         console.log("Author inserted successfully");
-         this.success = "Author inserted successfully";
-         setTimeout(() => {
-           location.reload(); // Reload the page after successful insertion
-         }, 800);
-       })
-       .catch((error) => {
-         this.warning = error.response.data.message; // Set warning message
-         setTimeout(() => {
-           this.warning = null; // Clear warning message after 3 seconds
-         }, 3000);
-         console.log(error);
-       });
-   },
- 
-   /**
-    * Updates an existing author.
-    */
-   updateAuthor() {
-     const authorName = this.author.name;
-     axios
-       .put(
-         "http://localhost/api/v1/author/" + this.id,
-         {
-           name: authorName,
-         },
-         {
-           headers: {
-             Authorization: "Bearer " + window.localStorage.token,
-           },
-         }
-       )
-       .then(() => {
-         console.log("Author updated successfully");
-         this.$router.push("/author"); // Redirect to author page after successful update
-       })
-       .catch((error) => {
-         console.log(error);
-         this.$router.push("/author"); // Redirect to author page on error
-       });
-   },
- 
-   /**
-    * Submits the form and performs validation.
-    */
-   submitForm() {
-     const form = document.getElementById("authorForm");
- 
-     if (form.checkValidity()) {
-       console.log("Valid form! Submitting...");
-     } else {
-       console.log("Invalid form!");
-     }
- 
-     form.classList.add("was-validated"); // Add validation classes to form
-   },
- },
+  data() {
+    return {
+      warning: null, // Warning message
+      success: null, // Success message
+      id: this.$route.params.id, // ID of the author to be updated
+      author: [],
+    };
+  },
+
+  mounted() {
+    const isLogged = localStorage.isLogged;
+    if (isLogged != "true") {
+      this.$router.push("/login"); // Redirect to login page if not logged in
+    } else {
+      this.fetchAuthor(); // Fetch author data
+    }
+  },
+
+  methods: {
+    /**
+     * Determines whether to create or update the author.
+     */
+    createOrUpdateAuthor() {
+      if (this.id) {
+        this.updateAuthor(); // Update author if ID exists
+      } else {
+        this.createAuthor(); // Create author if ID doesn't exist
+      }
+    },
+
+    /**
+     * Creates a new author.
+     */
+    createAuthor() {
+      axios
+        .post(
+          API_URL + "author",
+          {
+            name: this.$refs.nameInput.name,
+          },
+          {
+            headers: {
+              Authorization: "Bearer " + window.localStorage.token,
+            },
+          }
+        )
+        .then(() => {
+          console.log("Autor inserido com sucesso!");
+          this.success = "Autor inserido com sucesso!";
+          setTimeout(() => {
+            location.reload(); // Reload the page after successful insertion
+          }, 800);
+        })
+        .catch((error) => {
+          this.warning = error.response.data.message; // Set warning message
+          setTimeout(() => {
+            this.warning = null; // Clear warning message after 3 seconds
+          }, 3000);
+          console.log(error);
+        });
+    },
+
+    /**
+     * Updates an existing author.
+     */
+    updateAuthor() {
+      axios
+        .put(
+          API_URL + "author/" + this.id,
+          {
+            name: this.$refs.nameInput.name,
+          },
+          {
+            headers: {
+              Authorization: "Bearer " + window.localStorage.token,
+            },
+          }
+        )
+        .then(() => {
+          console.log("Autor atualizado com sucesso!");
+          this.$router.push("/author"); // Redirect to author page after successful update
+        })
+        .catch((error) => {
+          console.log(error);
+          this.$router.push("/author"); // Redirect to author page on error
+        });
+    },
+
+    /**
+     * Submits the form and performs validation.
+     */
+    submitForm() {
+      const form = document.getElementById("authorForm");
+
+      if (form.checkValidity()) {
+        console.log("Valido formulário! Enviando...");
+      } else {
+        console.log("Invalid form!");
+      }
+
+      form.classList.add("was-validated"); // Add validation classes to form
+    },
+  },
 };
 </script>

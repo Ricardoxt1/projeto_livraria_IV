@@ -109,7 +109,7 @@ export default {
      * @param {number} id - The ID of the publisher to delete
      */
     deletePublisher(id) {
-      fetch("http://localhost/api/v1/publisher" + id, {
+      fetch(API_URL + "publisher" + id, {
         method: "DELETE",
         headers: {
           Authorization: "Bearer " + window.localStorage.token,
@@ -139,7 +139,7 @@ export default {
      */
     fetchPublishers() {
       axios
-        .get("http://localhost/api/v1/publisher", {
+        .get(API_URL + "publisher", {
           headers: {
             Authorization: "Bearer " + window.localStorage.token,
           },

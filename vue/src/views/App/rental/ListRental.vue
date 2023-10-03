@@ -24,11 +24,11 @@
               <form v-show="showForm" @submit.prevent="createRental">
                 <tbody>
                   <tr v-for="rental in rentals" :key="rental.id">
-                    <td name="customer_name">{{ rental.customer_name }}</td>
-                    <td name="book_titule">{{ rental.book_titule }}</td>
+                    <td name="customer_name">{{ rental.customer.name }}</td>
+                    <td name="book_titule">{{ rental.book.titule }}</td>
                     <td name="rental">{{ rental.rental }}</td>
                     <td name="delivery">{{ rental.delivery }}</td>
-                    <td name="employee_name">{{ rental.employee_name }}</td>
+                    <td name="employee_name">{{ rental.employee.name }}</td>
                     <td class="text-center">
                       <a :to="'rentalEdit/' + rental.id"
                         ><svg
@@ -100,14 +100,48 @@ export default {
       this.fetchRentals();
     }
   },
-created() {
-  this.fetchRentals();
-},
+  created() {
+    this.fetchRentals();
+    axios
+      .get(API_URL + "book", {
+        headers: {
+          Authorization: "Bearer " + window.localStorage.token,
+        },
+      })
+      .then((response) => {
+        this.books = response.data;
+        console.log(response.data);
+      });
+
+    axios
+      .get(API_URL + "employee", {
+        headers: {
+          Authorization: "Bearer " + window.localStorage.token,
+        },
+      })
+      .then((response) => {
+        this.employees = response.data;
+        console.log(response.data);
+      });
+
+    axios
+      .get(API_URL + "customer", {
+        headers: {
+          Authorization: "Bearer " + window.localStorage.token,
+        },
+      })
+      .then((response) => {
+        this.customers = response.data;
+        console.log(response.data);
+      });
+  },
   data() {
     return {
       warning: null,
       success: null,
-      employees: [],
+      employee: [],
+      customer: [],
+      book: [],
       titule: "Listagem de alugueis",
     };
   },
@@ -116,7 +150,7 @@ created() {
      * delete a rental
      */
     deleteRental(id) {
-      fetch("http://localhost/api/v1/rental/" + id, {
+      fetch(API_URL + "rental/" + id, {
         method: "DELETE",
         headers: {
           Authorization: "Bearer " + window.localStorage.token,
@@ -142,7 +176,7 @@ created() {
      */
     fetchRentals() {
       axios
-        .get("http://localhost/api/v1/rental", {
+        .get(API_URL + "rental", {
           headers: {
             Authorization: "Bearer " + window.localStorage.token,
           },

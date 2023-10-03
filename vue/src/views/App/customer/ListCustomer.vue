@@ -94,7 +94,7 @@ import BasicApp from "@/components/app/BasicApp.vue";
 import axios from "axios";
 export default {
   name: "ListCustomer",
-  
+
   /**
    * Mounts the component and performs necessary actions based on the user's login status.
    * @return {void}
@@ -104,21 +104,21 @@ export default {
     if (isLogged != "true") {
       this.$router.push("/login");
     } else {
-      axios.get("http://localhost/api/v1/customer", {
+      axios.get(API_URL + "customer", {
         headers: {
           Authorization: "Bearer " + window.localStorage.token,
         },
       });
     }
   },
-  
+
   /**
    * Fetches customer data from the server and stores it in the component's state.
    * @return {void}
    */
   created() {
     axios
-      .get("http://localhost/api/v1/customer", {
+      .get(API_URL + "customer", {
         headers: {
           Authorization: "Bearer " + window.localStorage.token,
         },
@@ -140,37 +140,37 @@ export default {
     return {
       warning: null,
       success: null,
-      customers: [],
+      customer: [],
       titule: "Listagem de usuários",
     };
   },
   methods: {
-    
     /**
      * Deletes a customer from the API.
      * @param {number} id - The ID of the customer to be deleted.
      */
     deleteCustomer(id) {
-      fetch("http://localhost/api/v1/customer/" + id, {
+      fetch(API_URL + "customer/" + id, {
         method: "DELETE",
         headers: {
           Authorization: "Bearer " + window.localStorage.token,
         },
-      }).then((response) => {
-        if (response.ok) {
-          console.log("Usuário deletado com sucesso");
-          setTimeout(() => {
-            location.reload();
-          }, 800);
-          this.success = "Usuário deletado com sucesso";
-        } else {
-          console.error("Erro ao excluir usuario:", response.status);
-          this.warning = "Erro ao excluir usuario:" + response.status;
-        }
       })
+        .then((response) => {
+          if (response.ok) {
+            console.log("Usuário deletado com sucesso");
+            setTimeout(() => {
+              location.reload();
+            }, 800);
+            this.success = "Usuário deletado com sucesso";
+          } else {
+            console.error("Erro ao excluir usuario:", response.status);
+            this.warning = "Erro ao excluir usuario:" + response.status;
+          }
+        })
         .catch((error) => {
           console.error("Erro ao excluir usuario:", error);
-        })
+        });
     },
   },
   components: {
