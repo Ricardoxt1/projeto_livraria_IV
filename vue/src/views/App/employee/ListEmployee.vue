@@ -123,7 +123,7 @@ export default {
      * @param {number} id - The ID of the employee to delete
      */
     deleteEmployee(id) {
-      fetch(API_URL + "employee/" + id, {
+      fetch(process.env.API_URL + "employee/" + id, {
         method: "DELETE",
         headers: {
           Authorization: "Bearer " + window.localStorage.token,
@@ -150,7 +150,7 @@ export default {
      */
     fetchEmployees() {
       axios
-        .get(API_URL + "employee", {
+        .get(process.env.API_URL + "employee", {
           headers: {
             Authorization: "Bearer " + window.localStorage.token,
           },
@@ -168,7 +168,7 @@ export default {
      */
     fetchLibrary() {
       axios
-        .get(API_URL + "library", {
+        .get(process.env.API_URL + "library", {
           headers: {
             Authorization: "Bearer " + window.localStorage.token,
           },

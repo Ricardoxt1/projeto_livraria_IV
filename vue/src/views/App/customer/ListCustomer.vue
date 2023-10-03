@@ -104,7 +104,7 @@ export default {
     if (isLogged != "true") {
       this.$router.push("/login");
     } else {
-      axios.get(API_URL + "customer", {
+      axios.get(process.env.API_URL + "customer", {
         headers: {
           Authorization: "Bearer " + window.localStorage.token,
         },
@@ -118,7 +118,7 @@ export default {
    */
   created() {
     axios
-      .get(API_URL + "customer", {
+      .get(process.env.API_URL + "customer", {
         headers: {
           Authorization: "Bearer " + window.localStorage.token,
         },
@@ -150,7 +150,7 @@ export default {
      * @param {number} id - The ID of the customer to be deleted.
      */
     deleteCustomer(id) {
-      fetch(API_URL + "customer/" + id, {
+      fetch(process.env.API_URL + "customer/" + id, {
         method: "DELETE",
         headers: {
           Authorization: "Bearer " + window.localStorage.token,

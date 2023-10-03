@@ -160,7 +160,7 @@ export default {
   submitForm() {
     axios
       .post(
-        API_URL + "register",
+        process.env.API_URL + "register",
         {
           username: this.register.username,
           email: this.register.email,

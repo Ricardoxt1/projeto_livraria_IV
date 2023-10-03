@@ -135,7 +135,7 @@ export default {
    */
   created() {
     axios
-      .get(API_URL + "customer", {
+      .get(process.env.API_URL + "customer", {
         headers: {
           Authorization: "Bearer " + window.localStorage.token,
         },
@@ -146,7 +146,7 @@ export default {
       });
 
     axios
-      .get(API_URL + "book", {
+      .get(process.env.API_URL + "book", {
         headers: {
           Authorization: "Bearer " + window.localStorage.token,
         },
@@ -157,7 +157,7 @@ export default {
       });
 
     axios
-      .get(API_URL + "employee", {
+      .get(process.env.API_URL + "employee", {
         headers: {
           Authorization: "Bearer " + window.localStorage.token,
         },
@@ -195,7 +195,7 @@ export default {
     createRental() {
       axios
         .post(
-          API_URL + "rental",
+          process.env.API_URL + "rental",
           {
             customer_id: this.$refs.customerInput.value,
             book_id: this.$refs.bookInput.value,
@@ -225,7 +225,7 @@ export default {
     updateRental() {
       axios
         .put(
-          API_URL + "rental/" + this.id,
+          process.env.API_URL + "rental/" + this.id,
           {
             customer_id: this.$refs.customerInput.value,
             book_id: this.$refs.bookInput.value,

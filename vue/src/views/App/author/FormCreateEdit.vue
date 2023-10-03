@@ -34,7 +34,6 @@
 
 <script>
 import axios from "axios";
-
 export default {
   name: "FormCreateEdit",
   data() {
@@ -73,7 +72,7 @@ export default {
     createAuthor() {
       axios
         .post(
-          API_URL + "author",
+          process.env.API_URL + "author",
           {
             name: this.$refs.nameInput.name,
           },
@@ -105,7 +104,7 @@ export default {
     updateAuthor() {
       axios
         .put(
-          API_URL + "author/" + this.id,
+          process.env.API_URL + "author/" + this.id,
           {
             name: this.$refs.nameInput.name,
           },

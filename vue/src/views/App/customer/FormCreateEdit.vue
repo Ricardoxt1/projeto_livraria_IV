@@ -158,7 +158,7 @@ export default {
         address: this.$refs.addressInput.email,
       };
       axios
-        .post(API_URL + "customer", customer, {
+        .post(process.env.API_URL + "customer", customer, {
           headers: {
             Authorization: "Bearer " + window.localStorage.token,
           },
@@ -192,7 +192,7 @@ export default {
         address: this.$refs.addressInput.email,
       };
       axios
-        .put(API_URL + "customer/" + this.id, customer, {
+        .put(process.env.API_URL + "customer/" + this.id, customer, {
           headers: {
             Authorization: "Bearer " + window.localStorage.token,
           },

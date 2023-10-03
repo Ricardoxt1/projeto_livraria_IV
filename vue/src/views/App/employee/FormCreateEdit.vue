@@ -131,7 +131,7 @@ export default {
    */
   created() {
     axios
-      .get(API_URL + "library", {
+      .get(process.env.API_URL + "library", {
         headers: {
           Authorization: "Bearer " + window.localStorage.token,
         },
@@ -178,7 +178,7 @@ export default {
       };
 
       axios
-        .post(API_URL + "employee", employee, {
+        .post(process.env.API_URL + "employee", employee, {
           headers: {
             Authorization: "Bearer " + window.localStorage.token,
           },
@@ -204,7 +204,7 @@ export default {
       };
 
       axios
-        .put(API_URL + "employee/" + this.id, employee, {
+        .put(process.env.API_URL + "employee/" + this.id, employee, {
           headers: {
             Authorization: "Bearer " + window.localStorage.token,
           },

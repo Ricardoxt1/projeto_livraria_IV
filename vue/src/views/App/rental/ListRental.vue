@@ -103,7 +103,7 @@ export default {
   created() {
     this.fetchRentals();
     axios
-      .get(API_URL + "book", {
+      .get(process.env.API_URL + "book", {
         headers: {
           Authorization: "Bearer " + window.localStorage.token,
         },
@@ -114,7 +114,7 @@ export default {
       });
 
     axios
-      .get(API_URL + "employee", {
+      .get(process.env.API_URL + "employee", {
         headers: {
           Authorization: "Bearer " + window.localStorage.token,
         },
@@ -125,7 +125,7 @@ export default {
       });
 
     axios
-      .get(API_URL + "customer", {
+      .get(process.env.API_URL + "customer", {
         headers: {
           Authorization: "Bearer " + window.localStorage.token,
         },
@@ -150,7 +150,7 @@ export default {
      * delete a rental
      */
     deleteRental(id) {
-      fetch(API_URL + "rental/" + id, {
+      fetch(process.env.API_URL + "rental/" + id, {
         method: "DELETE",
         headers: {
           Authorization: "Bearer " + window.localStorage.token,
@@ -176,7 +176,7 @@ export default {
      */
     fetchRentals() {
       axios
-        .get(API_URL + "rental", {
+        .get(process.env.API_URL + "rental", {
           headers: {
             Authorization: "Bearer " + window.localStorage.token,
           },

@@ -98,7 +98,7 @@ export default {
   created() {
     // Fetch the list of authors from the API
     axios
-      .get(API_URL + "author", {
+      .get(process.env.API_URL + "author", {
         headers: {
           Authorization: "Bearer " + window.localStorage.token,
         },
@@ -130,7 +130,7 @@ export default {
      */
     deleteBook(id) {
       // Send a DELETE request to the API to delete the author
-      fetch(API_URL + "author/" + id, {
+      fetch(process.env.API_URL + "author/" + id, {
         method: "DELETE",
         headers: {
           Authorization: "Bearer " + window.localStorage.token,

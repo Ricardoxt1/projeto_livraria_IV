@@ -75,8 +75,7 @@ export default {
     createPublisher() {
       axios
         .post(
-          API_URL + "publisher",
-          publisher,
+          process.env.API_URL + "publisher",
           {
             name: this.$refs.nameInput.value,
           },
@@ -101,7 +100,7 @@ export default {
     updatePublisher() {
       axios
         .put(
-          API_URL + "publisher/" + this.id,
+          process.env.API_URL + "publisher/" + this.id,
           {
             name: this.$refs.nameInput.value,
           },

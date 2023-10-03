@@ -150,7 +150,7 @@ export default {
   submitForm() {
     axios
       .post(
-        API_URL + "login",
+        process.env.API_URL + "login",
         {
           email: this.form.email,
           password: this.form.password,

@@ -161,7 +161,7 @@ export default {
      */
     deleteBook(id) {
       // Send DELETE request to the API
-      fetch(API_URL + "book/" + id, {
+      fetch(process.env.API_URL + "book/" + id, {
         method: "DELETE",
         headers: {
           Authorization: "Bearer " + window.localStorage.token,
@@ -191,7 +191,7 @@ export default {
     fetchBooks() {
       // Send GET request to the API
       axios
-        .get(API_URL + "book", {
+        .get(process.env.API_URL + "book", {
           headers: {
             Authorization: "Bearer " + window.localStorage.token,
           },

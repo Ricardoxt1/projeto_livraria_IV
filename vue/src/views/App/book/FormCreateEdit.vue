@@ -172,7 +172,7 @@ export default {
    */
   created() {
     axios
-      .get(API_URL + "author", {
+      .get(process.env.API_URL + "author", {
         headers: {
           Authorization: "Bearer " + window.localStorage.token,
         },
@@ -183,7 +183,7 @@ export default {
       });
 
     axios
-      .get(API_URL + "library", {
+      .get(process.env.API_URL + "library", {
         headers: {
           Authorization: "Bearer " + window.localStorage.token,
         },
@@ -194,7 +194,7 @@ export default {
       });
 
     axios
-      .get(API_URL + "publisher", {
+      .get(process.env.API_URL + "publisher", {
         headers: {
           Authorization: "Bearer " + window.localStorage.token,
         },
@@ -239,7 +239,7 @@ export default {
         image: this.$refs.imgInput.files[0],
       };
       axios
-        .post(API_URL + "book", book, {
+        .post(process.env.API_URL + "book", book, {
           headers: {
             Authorization: "Bearer " + window.localStorage.token,
           },
@@ -270,7 +270,7 @@ export default {
         image: this.$refs.imgInput.files[0],
       };
       axios
-        .put(API_URL + "book/" + this.id, book, {
+        .put(process.env.API_URL + "book/" + this.id, book, {
           headers: {
             Authorization: "Bearer " + window.localStorage.token,
           },
