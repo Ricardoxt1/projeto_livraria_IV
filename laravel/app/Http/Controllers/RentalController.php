@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Rental;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
+use Illuminate\Http\JsonResponse;
 
 class RentalController extends Controller
 {
@@ -14,7 +14,7 @@ class RentalController extends Controller
      * Constructs a new instance of the class.
      * @param Rental $rental The rental object.
      */
-    public function __construct(Rental $rental)
+    public function __construct(Rental $rental): void
     {
         $this->rental = $rental;
     }
@@ -22,9 +22,9 @@ class RentalController extends Controller
     /**
      * Display a listing of the resource.
      * @param Rental $rental
-     * @return Response
+     * @return JsonResponse
      */
-    public function index()
+    public function index(): JsonResponse
     {
         $rentals = $this->rental->with('book', 'customer', 'employee')->get();
         return response()->json($rentals, 200, ['msg' => 'Recurso listado com sucesso.']);
@@ -34,9 +34,9 @@ class RentalController extends Controller
      * Store the form for creating a new rental.
      * @param Rental $rental
      * @param Request $request
-     * @return Response
+     * @return JsonResponse
      */
-    public function store(Request $request)
+    public function store(Request $request): JsonResponse
     {
         $request->validate($this->rental->rules(), $this->rental->feedback());
         $rental = $this->rental->create($request->all());
@@ -46,10 +46,10 @@ class RentalController extends Controller
 
     /**
      * Display the specified resource.
-     * @param  Integer $id
-     * @return Response
+     * @param  Int $id
+     * @return JsonResponse
      */
-    public function show($id)
+    public function show(int $id): JsonResponse
     {
         $rental = $this->rental->find($id);
         if (is_null($rental)) {
@@ -62,10 +62,10 @@ class RentalController extends Controller
     /**
      * Update the specified resource in storage.
      * @param Request  $request
-     * @param Integer $id
-     * @return Response
+     * @param Int $id
+     * @return JsonResponse
      */
-    public function update(Request $request, $id)
+    public function update(Request $request,int $id): JsonResponse
     {
         $rental = $this->rental->find($id);
 
@@ -85,10 +85,10 @@ class RentalController extends Controller
 
     /**
      * Remove the specified resource from storage.
-     * @param Integer $id
-     * @return Response
+     * @param Int $id
+     * @return JsonResponse
      */
-    public function destroy($id)
+    public function destroy(int $id): JsonResponse
     {
         $rental = $this->rental->find($id);
         if (is_null($rental)) {

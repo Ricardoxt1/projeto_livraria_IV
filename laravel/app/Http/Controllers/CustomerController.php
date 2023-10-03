@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Customer;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
+use Illuminate\Http\JsonResponse;
 
 class CustomerController extends Controller
 {
@@ -15,16 +15,16 @@ class CustomerController extends Controller
      *
      * @param Customer $customer The customer object.
      */
-    public function __construct(Customer $customer)
+    public function __construct(Customer $customer): void
     {
         $this->customer = $customer;
     }
 
     /**
      * Display a listing of the resource.
-     * @return Response
+     * @return JsonResponse
      */
-    public function index()
+    public function index(): JsonResponse
     {
         $customers = $this->customer->with('rentals')->get();
         return response()->json($customers, 200, ['msg' => 'Recurso listado com sucesso']);
@@ -33,10 +33,10 @@ class CustomerController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     * @return Response  $request
-     * @return Response
+     * @return Request  $request
+     * @return JsonResponse
      */
-    public function store(Request $request)
+    public function store(Request $request): JsonResponse
     {
         $request->validate($this->customer->rules(), $this->customer->feedback());
         $customers = $this->customer->create($request->all());
@@ -45,10 +45,10 @@ class CustomerController extends Controller
 
     /**
      * Display the specified resource.
-     * @param  Integer $id
-     * @return Response
+     * @param  Int $id
+     * @return JsonResponse
      */
-    public function show(int $id)
+    public function show(int $id): JsonResponse
     {
         $customer = $this->customer->with('rentals')->find($id);
         if (is_null($customer)) {
@@ -63,9 +63,9 @@ class CustomerController extends Controller
      * Update the specified resource in storage.
      * @param  Customer  $customer
      * @param  Request  $request
-     * @return Response
+     * @return JsonResponse
      */
-    public function update(Request $request, Customer $customer)
+    public function update(Request $request, Customer $customer): JsonResponse
     {
         if ($request->method() === 'PATCH') {
             $customer->update($request->only($this->customer->fillable));
@@ -78,10 +78,10 @@ class CustomerController extends Controller
 
     /**
      * Remove the specified resource from storage.
-     * @param Integer  $id
-     * @return Response
+     * @param Int  $id
+     * @return JsonResponse
      */
-    public function destroy(int $id)
+    public function destroy(int $id): JsonResponse
     {
         $customer = $this->customer->find($id);
         if (is_null($customer)) {

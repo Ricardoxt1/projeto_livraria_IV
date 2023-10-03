@@ -17,7 +17,7 @@ class AuthController extends Controller
      * @param Request $request The HTTP request object containing the email and password.
      * @return string The result of the login process.
      */
-    public function login(Request $request)
+    public function login(Request $request): JsonResponse
     {
         $credential = $request->all('email', 'password');
         $token = auth('api')->attempt($credential);
@@ -38,7 +38,7 @@ class AuthController extends Controller
      *
      * @throws Some_Exception_Class description of exception
      */
-    public function logout()
+    public function logout(): JsonResponse
     {
         auth('api')->logout();
         return response()->json([
@@ -52,12 +52,12 @@ class AuthController extends Controller
      *
      * @return JsonResponse The JSON response with the new token.
      */
-    public function refresh()
-    {   
+    public function refresh(): JsonResponse
+    {
         try {
             // Tente renovar o token
             $newToken = auth()->refresh();
-            
+
             // A renovação foi bem-sucedida, envie o novo token de volta para o cliente
             return response()->json(['token' => $newToken], 200);
         } catch (TokenInvalidException $e) {
@@ -67,7 +67,6 @@ class AuthController extends Controller
             // O token expirou e não pode ser renovado, o usuário precisa fazer login novamente
             return response()->json(['error' => 'Token expirado'], 401);
         }
-        
     }
 
     /**
@@ -75,7 +74,7 @@ class AuthController extends Controller
      *
      * @return JsonResponse The JSON response containing the authenticated user.
      */
-    public function me()
+    public function me(): JsonResponse
     {
         return response()->json(auth()->user());
     }

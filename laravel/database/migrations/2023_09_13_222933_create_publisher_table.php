@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('publishers', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
             $table->string('name', 150)->index();
             $table->timestamps();
             $table->softDeletes();

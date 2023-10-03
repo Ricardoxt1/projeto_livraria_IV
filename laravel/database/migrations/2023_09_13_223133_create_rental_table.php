@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('rentals', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
             $table->unsignedBigInteger('customer_id')->index();
             $table->unsignedBigInteger('book_id')->index();
             $table->unsignedBigInteger('employee_id')->index();

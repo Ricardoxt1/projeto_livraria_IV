@@ -15,7 +15,7 @@ return new class extends Migration
     {
         //
         Schema::create('customers', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
             $table->string('cpf', 14 )->index();
             $table->string('name', 100)->index();
             $table->string('phone_number', 11)->index();

@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Employee;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
+use Illuminate\Http\JsonResponse;
 
 class EmployeeController extends Controller
 {
@@ -15,16 +15,16 @@ class EmployeeController extends Controller
      *
      * @param Employee $employee The employee object.
      */
-    public function __construct(Employee $employee)
+    public function __construct(Employee $employee): void
     {
         $this->employee = $employee;
     }
 
     /**
      * Display a listing of the resource.
-     * @return Response
+     * @return JsonResponse
      */
-    public function index()
+    public function index(): JsonResponse
     {
         $employees = $this->employee->with('library')->get();
         return response()->json($employees, 200, ['msg' => 'Recurso listado com sucesso']);
@@ -33,9 +33,9 @@ class EmployeeController extends Controller
     /**
      * Store a newly created resource in storage.
      * @param  Request  $request
-     * @return Response
+     * @return JsonResponse
      */
-    public function store(Request $request)
+    public function store(Request $request): JsonResponse
     {
         $request->validate($this->employee->rules(), $this->employee->feedback());
         $employees = $this->employee->create($request->all());
@@ -45,10 +45,10 @@ class EmployeeController extends Controller
 
     /**
      * Display the specified resource.
-     * @param  Integer $id
-     * @return Response
+     * @param  Int $id
+     * @return JsonResponse
      */
-    public function show(int $id)
+    public function show(int $id): JsonResponse
     {
         $employee = $this->employee->with('library')->find($id);
         if (is_null($employee)) {
@@ -61,10 +61,10 @@ class EmployeeController extends Controller
     /**
      * Update the specified resource in storage.
      * @param Request $request
-     * @param Integer $id
-     * @return Response
+     * @param Int $id
+     * @return JsonResponse
      */
-    public function update(Request $request, int $id)
+    public function update(Request $request, int $id): JsonResponse
     {
         $employee = $this->employee->find($id);
         if (is_null($employee)) {
@@ -83,10 +83,10 @@ class EmployeeController extends Controller
 
     /**
      * Remove the specified resource from storage.
-     * @param Integer $id
-     * @return Response
+     * @param Int $id
+     * @return JsonResponse
      */
-    public function destroy(int $id)
+    public function destroy(int $id): JsonResponse
     {
         $employee = $this->employee->find($id);
         if (is_null($employee)) {

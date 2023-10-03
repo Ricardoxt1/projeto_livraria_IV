@@ -13,8 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('log_acessos', function (Blueprint $table) {
-            $table->id();
+        Schema::create('log_acess', function (Blueprint $table) {
+            $table->bigIncrements('id');
             $table->string('log', 200);
             $table->timestamps();
         });

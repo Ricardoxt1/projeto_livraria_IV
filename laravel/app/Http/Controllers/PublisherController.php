@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Publisher;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
+use Illuminate\Http\JsonResponse;
+
 
 class PublisherController extends Controller
 {
@@ -14,16 +15,16 @@ class PublisherController extends Controller
      * Constructs a new instance of the class.
      * @param Publisher $publisher The publisher object.
      */
-    public function __construct(Publisher $publisher)
+    public function __construct(Publisher $publisher): void
     {
         $this->publisher = $publisher;
     }
 
     /**
      * Display a listing of the resource.
-     * @return Response
+     * @return JsonResponse
      */
-    public function index()
+    public function index(): JsonResponse
     {
         $publishers = $this->publisher->with('books')->get();
         return response()->json($publishers, 200, ['msg' => 'Recurso listado com sucesso']);
@@ -32,9 +33,9 @@ class PublisherController extends Controller
     /**
      * Store a newly created resource in storage.
      * @param Request  $request
-     * @return Response
+     * @return JsonResponse
      */
-    public function store(Request $request)
+    public function store(Request $request): JsonResponse
     {
         $request->validate($this->publisher->rules(), $this->publisher->feedback());
         $publisher = $this->publisher->create($request->all());
@@ -43,10 +44,10 @@ class PublisherController extends Controller
 
     /**
      * Display the specified resource.
-     * @param Integer $id
-     * @return Response
+     * @param Int $id
+     * @return JsonResponse
      */
-    public function show($id)
+    public function show(int $id): JsonResponse
     {
         $publishers = $this->publisher->with('books')->find($id);
         if (is_null($publishers)) {
@@ -59,10 +60,10 @@ class PublisherController extends Controller
     /**
      * Update the specified resource in storage.
      * @param Request  $request
-     * @param Integer $id
-     * @return Response
+     * @param Int $id
+     * @return JsonResponse
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, int $id): JsonResponse
     {
    
         $publisher = $this->publisher->find($id);
@@ -83,10 +84,10 @@ class PublisherController extends Controller
 
     /**
      * Remove the specified resource from storage.
-     * @param Integer $id
-     * @return Response
+     * @param Int $id
+     * @return JsonResponse
      */
-    public function destroy($id)
+    public function destroy(int $id): JsonResponse
     {
         $publisher = $this->publisher->find($id);
         if (is_null($publisher)) {
